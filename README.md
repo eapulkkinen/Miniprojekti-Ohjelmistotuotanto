@@ -1,5 +1,5 @@
 # Miniprojekti_Ohjelmistotuotanto
-![GHA workplace badge]https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/workflows/maven/badge.svg
+![GHA workplace badge](https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/workflows/maven/badge.svg)
 
 Product backlog
 https://docs.google.com/spreadsheets/d/1KPGycz-FQDKNGKiptPgKgUgFEg-c-JVttu5XMK8gSHA/edit?usp=sharing
