@@ -3,8 +3,8 @@
     <groupId>com.projekti</groupId>
     <artifactId>miniprojekti</artifactId>
     <version>1</version>
-    <id>coverage</id>
     <profile>
+    <id>coverage</id>
     <build>
     <plugins>
         <plugin>
