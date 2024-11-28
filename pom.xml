@@ -1,6 +1,6 @@
 <profile>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
+  <groupId>com.projekti</groupId>
   <artifactId>miniprojekti</artifactId>
   <version>1</version>
   <id>coverage</id>
