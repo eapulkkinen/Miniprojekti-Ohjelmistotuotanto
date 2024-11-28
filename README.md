@@ -1,8 +1,8 @@
 # Miniprojekti_Ohjelmistotuotanto
-https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/workflows/maven/badge.svg
+![GHA workplace badge]https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/workflows/maven/badge.svg
 
 Product backlog
-![GHA workplace badge]https://docs.google.com/spreadsheets/d/1KPGycz-FQDKNGKiptPgKgUgFEg-c-JVttu5XMK8gSHA/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1KPGycz-FQDKNGKiptPgKgUgFEg-c-JVttu5XMK8gSHA/edit?usp=sharing
 
 Definition of Done
 -User storyn kaikki hyväksymiskriteerit täyttyvät
