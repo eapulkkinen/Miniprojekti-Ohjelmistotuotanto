@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Miniprojekti {
-    List<Citation> citations = new ArrayList<Citation>();
+    final private List<Citation> citations = new ArrayList<Citation>();
     
     public int add(int a, int b) {
         return a + b;
