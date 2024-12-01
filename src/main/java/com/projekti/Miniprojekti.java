@@ -5,13 +5,28 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author developers
+ * @version 1.12.2024
+ *
+ */
 public class Miniprojekti {
     final private List<Citation> citations = new ArrayList<Citation>();
     
+    /**
+     * @param a kirjain
+     * @param b kirjain
+     * @return yhteenlaskettumaara
+     */
     public int add(int a, int b) {
         return a + b;
     }
 
+    /**
+     * @param a a
+     * @param b a
+     * @return a
+     */
     public int subtract(int a, int b) {
         return a - b;
     }
@@ -83,7 +98,7 @@ public class Miniprojekti {
      * Handles the user input for the citation type
      * @param scanner Scanner object
      * @return integer
-     * @throws InputMisMatchException if the input is not an integer
+     * @throws InputMismatchException if the input is not an integer
      */
     public int getType(Scanner scanner) {
         System.out.println("-1 TO QUIT!");

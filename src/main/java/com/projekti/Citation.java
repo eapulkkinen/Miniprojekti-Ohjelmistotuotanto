@@ -20,6 +20,7 @@ public class Citation {
         this.data = data;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id: " + id + "\n"
@@ -28,4 +29,16 @@ public class Citation {
             + "Data: " + data);
         return sb.toString();
     } 
+    
+    
+    /**
+     * @return citation as BibTeX entry string
+     */
+    public String getBibTeXEntry() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("@" + Type.values()[type] + "{" + key + ",\n");
+        sb.append(data);
+        sb.append("\n}");
+        return sb.toString();
+    }
 }
