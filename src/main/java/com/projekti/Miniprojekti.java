@@ -168,9 +168,9 @@ public class Miniprojekti {
     public int getType(Scanner scanner) {
         System.out.println("-1 TO QUIT!");
         System.out.println("Give a type:");
-        System.out.println("0: " + Citation.Type.Inproceedings);
-        System.out.println("1: " + Citation.Type.Article);
-        System.out.println("2: " + Citation.Type.Book);
+        System.out.println("0: " + Citation.EntryType.Inproceedings);
+        System.out.println("1: " + Citation.EntryType.Article);
+        System.out.println("2: " + Citation.EntryType.Book);
         return scanner.nextInt();
     }
 

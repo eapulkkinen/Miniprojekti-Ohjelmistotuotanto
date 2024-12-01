@@ -14,7 +14,7 @@ public class Citation {
     private Map<DataType, String> data;
 
     // All the different citation types
-    protected enum Type {
+    protected enum EntryType {
         Inproceedings,
         Article,
         Book
@@ -40,9 +40,13 @@ public class Citation {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id: " + id + "\n"
-            + "Type: " + Type.values()[type] + "\n"
+            + "Type: " + EntryType.values()[type] + "\n"
             + "Key: " + key + "\n"
-            + "Data: \n" + data);
+            //+ "Data: \n" + data);
+            );
+        for (var v : data.entrySet()) {
+            sb.append(v.getKey() + ": " + v.getValue() + "\n");
+        }
         return sb.toString();
     } 
     
@@ -50,9 +54,9 @@ public class Citation {
     /**
      * @return citation as BibTeX entry string
      */
-    public String getBibTeXEntry() {
+    public String toBibTeXEntry() {
         StringBuilder sb = new StringBuilder();
-        sb.append("@" + Type.values()[type] + "{" + key + ",\n");
+        sb.append("@" + EntryType.values()[type] + "{" + key + ",\n");
         sb.append(data);
         sb.append("\n}");
         return sb.toString();
