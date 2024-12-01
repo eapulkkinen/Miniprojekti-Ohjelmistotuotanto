@@ -1,6 +1,7 @@
 package com.projekti;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author pelti
@@ -44,7 +45,7 @@ public class Citation {
             + "Key: " + key + "\n"
             //+ "Data: \n" + data);
             );
-        for (var v : data.entrySet()) {
+        for (Entry<DataType, String> v : data.entrySet()) {
             sb.append(v.getKey() + ": " + v.getValue() + "\n");
         }
         return sb.toString();
@@ -57,7 +58,7 @@ public class Citation {
     public String toBibTeXEntry() {
         StringBuilder sb = new StringBuilder();
         sb.append("@" + EntryType.values()[type] + "{" + key + ",\n");
-        for (var v : data.entrySet()) {
+        for (Entry<DataType, String> v : data.entrySet()) {
             sb.append(v.getKey().toString().toLowerCase() + " = {" + v.getValue() + "},\n");
         }
         sb.append("}");
