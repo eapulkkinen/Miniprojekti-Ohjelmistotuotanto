@@ -57,8 +57,10 @@ public class Citation {
     public String toBibTeXEntry() {
         StringBuilder sb = new StringBuilder();
         sb.append("@" + EntryType.values()[type] + "{" + key + ",\n");
-        sb.append(data);
-        sb.append("\n}");
+        for (var v : data.entrySet()) {
+            sb.append(v.getKey().toString().toLowerCase() + " = {" + v.getValue() + "},\n");
+        }
+        sb.append("}");
         return sb.toString();
     }
 }
