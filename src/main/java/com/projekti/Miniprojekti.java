@@ -61,7 +61,10 @@ public class Miniprojekti {
 
                     String data = null;
                     while (data == null) {
-                        data = mini.getData(scanner);
+                        //data = mini.getData(scanner);
+                        if(type == 0) data = mini.getInProceedingsData(scanner);
+                        if(type == 1) data = mini.getArticleData(scanner);
+                        if(type == 2) data = mini.getBookData(scanner);
                     }
                     System.out.println("You gave the data: " + data + "\n");
 
@@ -92,6 +95,64 @@ public class Miniprojekti {
             System.out.println(mini.citations.get(i));
             System.out.println("---");
         }
+    }
+
+    private String getArticleData(Scanner scanner) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println("Please input author:");
+        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input title:");
+        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input journal:");
+        sb.append("Journal: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input year:");
+        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input volume:");
+        sb.append("Volume: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input pages:");
+        sb.append("Pages: "+scanner.nextLine().trim() + "\n");
+
+        return sb.toString();
+    }
+
+    private String getBookData(Scanner scanner) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println("Please input author:");
+        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input title:");
+        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input year:");
+        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input publisher:");
+        sb.append("Publisher: "+scanner.nextLine().trim() + "\n");
+        
+        return sb.toString();
+    }
+
+    private String getInProceedingsData(Scanner scanner) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println("Please input author:");
+        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input title:");
+        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input year:");
+        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+
+        System.out.println("Please input book title:");
+        sb.append("Book title: "+scanner.nextLine().trim() + "\n");
+        
+        return sb.toString();
+        
     }
 
     /**
