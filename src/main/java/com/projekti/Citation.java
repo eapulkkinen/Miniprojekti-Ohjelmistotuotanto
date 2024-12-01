@@ -1,5 +1,7 @@
 package com.projekti;
 
+import java.util.Map;
+
 /**
  * @author pelti
  * @version 1.12.2024
@@ -9,7 +11,7 @@ public class Citation {
     private final int id;
     private int type; // I think this should be straight up enum instead of int /Pekka
     private String key;
-    private String data;
+    private Map<DataType, String> data;
 
     // All the different citation types
     protected enum Type {
@@ -17,6 +19,7 @@ public class Citation {
         Article,
         Book
     }
+    
 
     /**
      * @param id unique to a single quote is not the same as a key.
@@ -24,7 +27,7 @@ public class Citation {
      * @param key key of the citation to be searched
      * @param data contents
      */
-    public Citation(int id, int type, String key, String data) {
+    public Citation(int id, int type, String key, Map<DataType, String> data) {
         this.id = id;
         this.type = type; // either Inproceedings, article or book
         this.key = key;

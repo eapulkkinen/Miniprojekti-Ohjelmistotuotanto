@@ -1,7 +1,9 @@
 package com.projekti;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -59,7 +61,7 @@ public class Miniprojekti {
                     }
                     System.out.println("You gave the key: " + key + "\n");
 
-                    String data = null;
+                    Map<DataType, String> data = null;
                     while (data == null) {
                         //data = mini.getData(scanner);
                         if(type == 0) data = mini.getInProceedingsData(scanner);
@@ -97,62 +99,64 @@ public class Miniprojekti {
         }
     }
 
-    private String getArticleData(Scanner scanner) {
-        StringBuilder sb = new StringBuilder();
+    private Map<DataType, String> getArticleData(Scanner scanner) {
+        Map<DataType, String> map = new HashMap<DataType, String>();
+        
         System.out.println("Please input author:");
-        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input journal:");
-        sb.append("Journal: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Journal, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input volume:");
-        sb.append("Volume: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Volume, scanner.nextLine().trim());
 
         System.out.println("Please input pages:");
-        sb.append("Pages: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Pages, scanner.nextLine().trim());
 
-        return sb.toString();
+        return map;
     }
 
-    private String getBookData(Scanner scanner) {
-        StringBuilder sb = new StringBuilder();
+    private Map<DataType, String> getBookData(Scanner scanner) {
+        Map<DataType, String> map = new HashMap<DataType, String>();
+        
         System.out.println("Please input author:");
-        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input publisher:");
-        sb.append("Publisher: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Publisher, scanner.nextLine().trim());
         
-        return sb.toString();
+        return map;
     }
 
-    private String getInProceedingsData(Scanner scanner) {
-        StringBuilder sb = new StringBuilder();
+    private Map<DataType, String> getInProceedingsData(Scanner scanner) {
+        Map<DataType, String> map = new HashMap<DataType, String>();
+        
         System.out.println("Please input author:");
-        sb.append("Author: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        sb.append("Title: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        sb.append("Year: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input book title:");
-        sb.append("Book title: "+scanner.nextLine().trim() + "\n");
+        map.put(DataType.BookTitle, scanner.nextLine().trim());
         
-        return sb.toString();
-        
+        return map;
     }
 
     /**
