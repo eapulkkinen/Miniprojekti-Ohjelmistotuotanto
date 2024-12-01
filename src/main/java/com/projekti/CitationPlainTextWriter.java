@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CitationPlainTextWriter {
 
-    public void WriteToFile(List<Citation> citations, String filename) {
+    public static void WriteToFile(List<Citation> citations, String filename) {
         try (PrintWriter writer = new PrintWriter(filename, "UTF-8")) {
             for(Citation c : citations) {
                 writer.println(c.toString());

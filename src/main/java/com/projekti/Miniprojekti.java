@@ -97,6 +97,9 @@ public class Miniprojekti {
             System.out.println(mini.citations.get(i));
             System.out.println("---");
         }
+        CitationBibTeXWriter.WriteToFile(mini.citations, "entries.bib");
+        CitationPlainTextWriter.WriteToFile(mini.citations, "entries.txt");
+
     }
 
     private Map<DataType, String> getArticleData(Scanner scanner) {
