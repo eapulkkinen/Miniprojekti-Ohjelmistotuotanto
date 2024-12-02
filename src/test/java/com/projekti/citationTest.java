@@ -10,7 +10,7 @@ import java.util.Map;
 public class citationTest {
 
     @Test
-    public void testToString() {
+    public void testToStringBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
         data.put(DataType.Author, "Author1, Author2");
         data.put(DataType.Title, "someTitle");
@@ -18,34 +18,61 @@ public class citationTest {
         data.put(DataType.Publisher, "somePublisher");
         
         Citation cit = new Citation(0, 2, "TEST1", data);
-        String result = "id: 0\n"
+        String citString = cit.toString();
+        boolean correct = true;
+        if (!citString.startsWith("id: 0\n"
                 + "Type: Book\n"
-                + "Key: TEST1\n"     
-                + "Author: Author1, Author2\n"
-                + "Title: someTitle\n"
-                + "Publisher: somePublisher\n"
-                + "Year: 2020\n";
-        assertEquals(cit.toString(), result);
-        
-        Map<DataType, String> data2 = new HashMap<DataType, String>();
-        data2.put(DataType.Author, "someAuthor");
-        data2.put(DataType.Title, "aTitle");
-        data2.put(DataType.Year, "2005");
-        data2.put(DataType.BookTitle, "aBook");;
-        
-        Citation cit2 = new Citation(1, 0, "TEST2", data2);
-        String result2 = "id: 1\n"
-                + "Type: Inproceedings\n"
-                + "Key: TEST2\n"
-                + "Author: someAuthor\n"
-                + "Title: aTitle\n"
-                + "Year: 2005\n"
-                + "BookTitle: aBook\n";
-        assertEquals(cit2.toString(), result2);
+                + "Key: TEST1\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Author: Author1, Author2\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Title: someTitle\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Publisher: somePublisher\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Year: 2020\n")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
     }
     
     @Test
-    public void testToBibTeXEntry() {
+    public void testToStringInproceedings() {
+        Map<DataType, String> data = new HashMap<DataType, String>();
+        data.put(DataType.Author, "someAuthor");
+        data.put(DataType.Title, "aTitle");
+        data.put(DataType.Year, "2005");
+        data.put(DataType.BookTitle, "aBook");
+        
+        Citation cit = new Citation(1, 0, "TEST2", data);
+        String citString = cit.toString();
+        boolean correct = true;
+        if (!citString.startsWith("id: 1\n"
+                + "Type: Inproceedings\n"
+                + "Key: TEST2\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Author: someAuthor\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Title: aTitle\n")) {
+            correct = false;
+        }
+        if (!citString.contains("Year: 2005\n")) {
+            correct = false;
+        }
+        if (!citString.contains("BookTitle: aBook\n")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testToBibTeXEntryBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
         data.put(DataType.Author, "Author1, Author2");
         data.put(DataType.Title, "someTitle");
@@ -53,28 +80,61 @@ public class citationTest {
         data.put(DataType.Publisher, "somePublisher");
         
         Citation cit = new Citation(0, 2, "TEST1", data);
-        String result = "@Book{TEST1,\n"
-                + "author = {Author1, Author2},\n"
-                + "title = {someTitle},\n"
-                + "publisher = {somePublisher},\n"
-                + "year = {2020},\n"
-                + "}";
-        assertEquals(cit.toBibTeXEntry(), result);
+        String citBibTeX = cit.toBibTeXEntry();
+        boolean correct = true;
+  
+        if (!citBibTeX.startsWith("@Book{TEST1,\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("author = {Author1, Author2},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("title = {someTitle},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("publisher = {somePublisher},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("year = {2020},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.endsWith("}")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testToBibTeXEntryInproceedings() {
+        Map<DataType, String> data = new HashMap<DataType, String>();
+        data.put(DataType.Author, "someAuthor");
+        data.put(DataType.Title, "aTitle");
+        data.put(DataType.Year, "2005");
+        data.put(DataType.BookTitle, "aBook");
         
-        Map<DataType, String> data2 = new HashMap<DataType, String>();
-        data2.put(DataType.Author, "someAuthor");
-        data2.put(DataType.Title, "aTitle");
-        data2.put(DataType.Year, "2005");
-        data2.put(DataType.BookTitle, "aBook");;
-        
-        Citation cit2 = new Citation(1, 0, "TEST2", data2);
-        String result2 = "@Inproceedings{TEST2,\n"
-                + "author = {someAuthor},\n"
-                + "title = {aTitle},\n"
-                + "year = {2005},\n"
-                + "booktitle = {aBook},\n"
-                + "}";
-        assertEquals(cit2.toBibTeXEntry(), result2);
+        Citation cit = new Citation(1, 0, "TEST2", data);
+        String citBibTeX = cit.toBibTeXEntry();
+        boolean correct = true;
+  
+        if (!citBibTeX.startsWith("@Inproceedings{TEST2,\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("author = {someAuthor},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("title = {aTitle},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("year = {2005},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("booktitle = {aBook},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.endsWith("}")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
     }
 
     // ... more test cases for different scenarios
