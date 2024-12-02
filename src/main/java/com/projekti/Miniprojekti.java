@@ -44,7 +44,7 @@ public class Miniprojekti {
                     scanner.nextLine();
                     if (!(0 <= type && type <= 2)) {
                         if (type == -1) {
-                            System.out.println("Quitting!\n");
+                            System.out.println("Quitting!" + System.getProperty("line.separator"));
                             break;
                         }
                         System.out.println("Not a valid type! " + type);

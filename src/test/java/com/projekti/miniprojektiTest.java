@@ -36,14 +36,14 @@ public class miniprojektiTest {
         System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
-        String expected = "-1 TO QUIT!\r\n"
-                + "Give a type:\r\n"
-                + "0: Inproceedings\r\n"
-                + "1: Article\r\n"
-                + "2: Book\r\n"
-                + "Quitting!\n"
-                + "\r\n"
-                + "No citations were added\r\n";
+        String expected = "-1 TO QUIT!" + System.getProperty("line.separator")
+                + "Give a type:" + System.getProperty("line.separator")
+                + "0: Inproceedings" + System.getProperty("line.separator")
+                + "1: Article" + System.getProperty("line.separator")
+                + "2: Book" + System.getProperty("line.separator")
+                + "Quitting!" + System.getProperty("line.separator")
+                + System.getProperty("line.separator")
+                + "No citations were added" + System.getProperty("line.separator");
         assertEquals(expected, actual);
     }
 
