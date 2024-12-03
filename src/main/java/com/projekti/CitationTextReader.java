@@ -3,12 +3,11 @@ package com.projekti;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 public class CitationTextReader{
     
-    public static void ReadFromTextFile(){
-        try (Scanner input = new Scanner(new File("UTF-8"))){
+    public static void ReadFromTextFile(String filename){
+        try (Scanner input = new Scanner(new File(filename))){
             while (input.hasNextLine()){
                 System.out.println(input.nextLine());
             }
@@ -17,9 +16,5 @@ public class CitationTextReader{
         } catch (Exception e) {
             throw e;
         }
-       
-        
-        
-
     }
 }
