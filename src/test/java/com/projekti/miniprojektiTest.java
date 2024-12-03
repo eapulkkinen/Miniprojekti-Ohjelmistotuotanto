@@ -34,7 +34,7 @@ public class miniprojektiTest {
     }
     
     @Test
-    public void testMainSuccessfullyAddCitation() {
+    public void testMainSuccessfullyAddCitationBook() {
         String userInput = "2" + System.getProperty("line.separator") + "TEST3"
                 + System.getProperty("line.separator") + "testAuthor" +
                 System.getProperty("line.separator") + "testTitle" +
@@ -69,6 +69,55 @@ public class miniprojektiTest {
             correct = false;
         }
         if (!actual.contains("Year: 2000")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainSuccessfullyAddCitationArticle() {
+        String userInput = "1" + System.getProperty("line.separator") + "TEST4"
+                + System.getProperty("line.separator") + "testAuthor2" +
+                System.getProperty("line.separator") + "testTitle2" +
+                System.getProperty("line.separator") + "testJournal" +
+                System.getProperty("line.separator") + "2022" +
+                System.getProperty("line.separator") + "3" +
+                System.getProperty("line.separator") + "12-15" +
+                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(os);
+        System.setOut(printStream);
+        Miniprojekti.main(null);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedBeginning = "Quitting!" + System.getProperty("line.separator")
+                + System.getProperty("line.separator")
+                + "Citations" + System.getProperty("line.separator")
+                + "-------------" + System.getProperty("line.separator")
+                + "id: 0" + System.getProperty("line.separator")
+                + "Type: Article" + System.getProperty("line.separator")
+                + "Key: TEST4" + System.getProperty("line.separator");
+        if (!actual.contains(expectedBeginning)) {
+            correct = false;
+        }
+        if (!actual.contains("Volume: 3")) {
+            correct = false;
+        }
+        if (!actual.contains("Author: testAuthor2")) {
+            correct = false;
+        }
+        if (!actual.contains("Title: testTitle2")) {
+            correct = false;
+        }
+        if (!actual.contains("Year: 2022")) {
+            correct = false;
+        }
+        if (!actual.contains("Journal: testJournal")) {
+            correct = false;
+        }
+        if (!actual.contains("Pages: 12-15")) {
             correct = false;
         }
         assertEquals(true, correct);
