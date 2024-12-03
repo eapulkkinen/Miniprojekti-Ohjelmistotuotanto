@@ -15,23 +15,6 @@ import java.util.Scanner;
 public class Miniprojekti {
     final private List<Citation> citations = new ArrayList<Citation>();
     
-    /**
-     * @param a kirjain
-     * @param b kirjain
-     * @return yhteenlaskettumaara
-     */
-    public int add(int a, int b) {
-        return a + b;
-    }
-
-    /**
-     * @param a a
-     * @param b a
-     * @return a
-     */
-    public int subtract(int a, int b) {
-        return a - b;
-    }
 
     public static void main(String[] args) {
         Miniprojekti mini = new Miniprojekti();
@@ -44,7 +27,7 @@ public class Miniprojekti {
                     scanner.nextLine();
                     if (!(0 <= type && type <= 2)) {
                         if (type == -1) {
-                            System.out.println("Quitting!\n");
+                            System.out.println("Quitting!" + System.getProperty("line.separator"));
                             break;
                         }
                         System.out.println("Not a valid type! " + type);
