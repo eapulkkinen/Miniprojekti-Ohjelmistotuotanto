@@ -1,6 +1,7 @@
 package com.projekti;
 
 import java.util.Scanner;
+import java.io.File;
 
 public class CitationTextReader{
     
