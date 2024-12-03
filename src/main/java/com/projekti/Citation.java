@@ -40,13 +40,13 @@ public class Citation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("id: " + id + "\n"
-            + "Type: " + EntryType.values()[type] + "\n"
-            + "Key: " + key + "\n"
+        sb.append("id: " + id + System.getProperty("line.separator")
+            + "Type: " + EntryType.values()[type] + System.getProperty("line.separator")
+            + "Key: " + key + System.getProperty("line.separator")
             //+ "Data: \n" + data);
             );
         for (Entry<DataType, String> v : data.entrySet()) {
-            sb.append(v.getKey() + ": " + v.getValue() + "\n");
+            sb.append(v.getKey() + ": " + v.getValue() + System.getProperty("line.separator"));
         }
         return sb.toString();
     } 
