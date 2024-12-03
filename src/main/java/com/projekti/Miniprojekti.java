@@ -2,6 +2,7 @@ package com.projekti;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -24,6 +25,7 @@ public class Miniprojekti {
             while (true) {
                 try {
                     int type = mini.getType(scanner);
+                    
                     scanner.nextLine();
                     if (!(0 <= type && type <= 2)) {
                         if (type == -1) {

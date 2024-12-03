@@ -1,0 +1,8 @@
+id: 0
+Type: Book
+Key: TEST3
+Publisher: testPublisher
+Year: 2000
+Title: testTitle
+Author: testAuthor
+
