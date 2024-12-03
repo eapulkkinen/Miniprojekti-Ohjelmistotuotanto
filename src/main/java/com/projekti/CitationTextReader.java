@@ -14,8 +14,6 @@ public class CitationTextReader{
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             throw e;
         }
