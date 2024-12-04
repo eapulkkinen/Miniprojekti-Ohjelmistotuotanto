@@ -63,10 +63,10 @@ public class Miniprojekti {
                 } catch (InputMismatchException e) {
                     scanner.nextLine(); // Infinite loop without
                     System.out.println("Wrong input format: " + e);
-                } finally {
-                    //System.out.println("Finally");
-                    //scanner.close();
-                }
+                } // finally {
+                    // System.out.println("Input something valid");
+                    // scanner.close();
+                // }
             }
         }
         if (mini.citations.size() == 0) {
