@@ -1,0 +1,22 @@
+package com.projekti;
+import org.junit.jupiter.api.Test;
+import java.util.List;
+
+
+@Test
+public void eiTiedostoa(){
+    boolean correct = true; 
+    List<Citation> citations; 
+    String filename; 
+    try{
+        for(Citation c : citations) {
+            writer.println(c.toString());
+        }
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        correct = false; 
+    catch (Exception e) {
+        throw e;
+    }
+    assertEquals(true, correct); 
+}
