@@ -62,10 +62,7 @@ public class Miniprojekti {
                     System.out.println("Added citation:\n" + cit + "\n");
                 } catch (InputMismatchException e) {
                     scanner.nextLine(); // Infinite loop without
-                    System.out.println("Wrong input format: " + e + "\n");
-                } catch (NumberFormatException e) {
-                    scanner.nextLine();
-                    System.out.println("Wrong number format: " + e + "\n");
+                    System.out.println("Wrong input format: " + e);
                 } finally {
                     //System.out.println("Finally");
                     //scanner.close();
@@ -177,8 +174,8 @@ public class Miniprojekti {
      * @param scanner Scanner object
      * @return trimmed string
      */
-    public String getData(Scanner scanner) {
-        System.out.println("Give data for the citation");
-        return scanner.nextLine().trim();
-    }
+    //public String getData(Scanner scanner) {
+    //    System.out.println("Give data for the citation");
+    //    return scanner.nextLine().trim();
+    //}
 }
