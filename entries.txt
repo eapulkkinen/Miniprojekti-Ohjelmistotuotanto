@@ -1,8 +1,10 @@
 id: 0
-Type: Book
-Key: TEST3
-Publisher: testPublisher
-Year: 2000
-Title: testTitle
-Author: testAuthor
+Type: Article
+Key: TEST4
+Author: testAuthor2
+Title: testTitle2
+Year: 2022
+Journal: testJournal
+Volume: 3
+Pages: 12-15
 

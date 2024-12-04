@@ -151,6 +151,31 @@ public class miniprojektiTest {
         }
         assertEquals(true, correct);
     }
+    
+    @Test
+    public void testMainEmptyKey() {
+        String userInput = "1" + System.getProperty("line.separator") + ""
+                + System.getProperty("line.separator") + "TEST4" +
+                System.getProperty("line.separator") + "testAuthor2" +
+                System.getProperty("line.separator") + "testTitle2" +
+                System.getProperty("line.separator") + "testJournal" +
+                System.getProperty("line.separator") + "2022" +
+                System.getProperty("line.separator") + "3" +
+                System.getProperty("line.separator") + "12-15" +
+                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(os);
+        System.setOut(printStream);
+        Miniprojekti.main(null);
+        String actual = os.toString();
+        boolean correct = true;
+        if (!actual.contains("Key cannot be empty!")) {
+        	correct = false;
+        }
+        assertEquals(true, correct);
+    }
 
     // ... more test cases for different scenarios
 }
