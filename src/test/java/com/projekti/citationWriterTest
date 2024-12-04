@@ -11,7 +11,7 @@ public class citationWriterTest{
         boolean correct = true; 
         List<Citation> citations; 
         String filename; 
-        try{
+        try{(PrintWriter writer = new PrintWriter(filename, "blaa"))
             for(Citation c : citations) {
                 writer.println(c.toString());
             }
