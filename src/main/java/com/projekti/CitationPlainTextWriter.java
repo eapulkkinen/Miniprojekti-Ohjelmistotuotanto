@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class CitationPlainTextWriter {
 
-	/**
+    /**
 	 * Writes citations given by the user to a text file.
 	 * @param citations a list of citations
 	 * @param filename name for the new file
