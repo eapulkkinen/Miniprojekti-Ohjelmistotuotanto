@@ -72,8 +72,6 @@
             <version>3.6.0</version>
             <configuration>
                 <configLocation>google_checks.xml</configLocation>
-                <suppressionsLocation>maven-checkstyle-suppressions-google_checks.xml</suppressionsLocation>
-                <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                 <encoding>UTF-8</encoding>
                 <consoleOutput>true</consoleOutput>
                 <failsOnError>true</failsOnError>
