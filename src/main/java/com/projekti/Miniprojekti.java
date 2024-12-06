@@ -80,7 +80,7 @@ public class Miniprojekti {
             System.out.println("---");
         }
         CitationBibTeXWriter.WriteToFile(mini.citations, "entries.bib");
-        CitationPlainTextWriter.WriteToFile(mini.citations, "entries.txt");
+        CitationPlainTextWriter.writeToFile(mini.citations, "entries.txt");
 
     }
 
