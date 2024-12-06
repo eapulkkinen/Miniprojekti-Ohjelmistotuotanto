@@ -71,7 +71,7 @@
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>3.6.0</version>
             <configuration>
-                <configLocation>sun_checks.xml</configLocation>
+                <configLocation>checkstyle.xml</configLocation>
                 <encoding>UTF-8</encoding>
                 <consoleOutput>true</consoleOutput>
                 <linkXRef>false</linkXRef>

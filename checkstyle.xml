@@ -40,7 +40,7 @@
                value="end_of_line"/>
       <setting id="org.eclipse.jdt.core.formatter.insert_space_after_comma_in_parameterized_type_reference"
                value="insert"/>
-      <setting id="org.eclipse.jdt.core.formatter.indentation.size" value="2"/>
+      <setting id="org.eclipse.jdt.core.formatter.indentation.size" value="4"/>
       <setting id="org.eclipse.jdt.core.formatter.insert_space_after_comma_in_multiple_field_declarations"
                value="insert"/>
       <setting id="org.eclipse.jdt.core.formatter.insert_space_after_comma_in_type_arguments"
