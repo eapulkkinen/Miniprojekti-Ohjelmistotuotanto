@@ -1,8 +1,10 @@
 id: 0
-Type: Inproceedings
-Key: TEST4
-Title: testTitle2
-Year: 2022
-BookTitle: testBookTitle
-Author: testAuthor2
+Type: Article
+Key: testArticle
+Journal: JYX
+Title: AI ja koodaamisen tulevaisuus
+Year: 2024
+Author: Maija Meikäläinen
+Volume: 12
+Pages: 15-23
 

@@ -1,5 +1,6 @@
 package com.projekti;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,122 +13,104 @@ import java.util.Scanner;
 
 public class miniprojektiTest {
 
+	String lineSep = System.getProperty("line.separator");
+	String mainStart = "-1 TO QUIT!" + lineSep
+            + "Give a type:" + lineSep
+            + "0: Inproceedings" + lineSep
+            + "1: Article" + lineSep
+            + "2: Book" + lineSep;
+	
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(os);
+    
+	@BeforeEach
+	public void setOutput () {
+        System.setOut(printStream);
+	}
+	
+	
     @Test
     public void testMainQuitImmediately() {
-        String userInput = "-1" + System.getProperty("line.separator");
+        String userInput = "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
-        String expected = "-1 TO QUIT!" + System.getProperty("line.separator")
-                + "Give a type:" + System.getProperty("line.separator")
-                + "0: Inproceedings" + System.getProperty("line.separator")
-                + "1: Article" + System.getProperty("line.separator")
-                + "2: Book" + System.getProperty("line.separator")
-                + "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "No citations were added" + System.getProperty("line.separator");
+        String expected = mainStart
+                + "Quitting!" + lineSep
+                + lineSep
+                + "No citations were added" + lineSep;
         assertEquals(expected, actual);
     }
     
     @Test
     public void testMainInvalidTypeInt() {
     	String testNumber = "5";
-    	String userInput = testNumber + System.getProperty("line.separator") 
-    			+ "-1" + System.getProperty("line.separator");
+    	String userInput = testNumber + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
-        String expected = "-1 TO QUIT!" + System.getProperty("line.separator")
-                + "Give a type:" + System.getProperty("line.separator")
-                + "0: Inproceedings" + System.getProperty("line.separator")
-                + "1: Article" + System.getProperty("line.separator")
-                + "2: Book" + System.getProperty("line.separator")
-            	+ "Not a valid type! " + testNumber + System.getProperty("line.separator")
-            	+ "-1 TO QUIT!" + System.getProperty("line.separator")
-                + "Give a type:" + System.getProperty("line.separator")
-                + "0: Inproceedings" + System.getProperty("line.separator")
-                + "1: Article" + System.getProperty("line.separator")
-                + "2: Book" + System.getProperty("line.separator")
-                + "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "No citations were added" + System.getProperty("line.separator");
+        String expected = mainStart
+            	+ "Not a valid type! " + testNumber + lineSep
+            	+ mainStart
+                + "Quitting!" + lineSep
+                + lineSep
+                + "No citations were added" + lineSep;
         assertEquals(expected, actual);
     }
     
     @Test
     public void testMainInvalidTypeNonInt() {
     	String testInput = "a";
-    	String userInput = testInput + System.getProperty("line.separator") 
-    			+ "-1" + System.getProperty("line.separator");
+    	String userInput = testInput + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
-        String expected = "-1 TO QUIT!" + System.getProperty("line.separator")
-                + "Give a type:" + System.getProperty("line.separator")
-                + "0: Inproceedings" + System.getProperty("line.separator")
-                + "1: Article" + System.getProperty("line.separator")
-                + "2: Book" + System.getProperty("line.separator")
-            	+ "Wrong input format: java.util.InputMismatchException" + System.getProperty("line.separator")
-            	+ "-1 TO QUIT!" + System.getProperty("line.separator")
-                + "Give a type:" + System.getProperty("line.separator")
-                + "0: Inproceedings" + System.getProperty("line.separator")
-                + "1: Article" + System.getProperty("line.separator")
-                + "2: Book" + System.getProperty("line.separator")
-                + "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "No citations were added" + System.getProperty("line.separator");
+        String expected = mainStart
+            	+ "Wrong input format: java.util.InputMismatchException" + lineSep
+            	+ mainStart
+                + "Quitting!" + lineSep
+                + lineSep
+                + "No citations were added" + lineSep;
         assertEquals(expected, actual);
     }
     
     
     @Test
     public void testMainSuccessfullyAddCitationBook() {
-        String userInput = "2" + System.getProperty("line.separator") + "TEST3"
-                + System.getProperty("line.separator") + "testAuthor" +
-                System.getProperty("line.separator") + "testTitle" +
-                System.getProperty("line.separator") + "2000" +
-                System.getProperty("line.separator") + "testPublisher" +
-                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+        String userInput = "2" + lineSep + "testBook"
+                + lineSep + "Matti Meikäläinen"
+                + lineSep + "Koodauksen perusteet"
+                + lineSep + "2000"
+                + lineSep + "Otava"
+                + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
         boolean correct = true;
-        String expectedBeginning = "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "Citations" + System.getProperty("line.separator")
-                + "-------------" + System.getProperty("line.separator")
-                + "id: 0" + System.getProperty("line.separator")
-                + "Type: Book" + System.getProperty("line.separator")
-                + "Key: TEST3" + System.getProperty("line.separator");
-        if (!actual.contains(expectedBeginning)) {
+        String expectedEnding = "Quitting!" + lineSep
+                + lineSep
+                + "Citations" + lineSep
+                + "-------------" + lineSep
+                + "id: 0" + lineSep
+                + "Type: Book" + lineSep
+                + "Key: testBook" + lineSep;
+        if (!actual.contains(expectedEnding)) {
             correct = false;
         }
-        if (!actual.contains("Publisher: testPublisher")) {
+        if (!actual.contains("Author: Matti Meikäläinen")) {
             correct = false;
         }
-        if (!actual.contains("Author: testAuthor")) {
-            correct = false;
-        }
-        if (!actual.contains("Title: testTitle")) {
+        if (!actual.contains("Title: Koodauksen perusteet")) {
             correct = false;
         }
         if (!actual.contains("Year: 2000")) {
+            correct = false;
+        }
+        if (!actual.contains("Publisher: Otava")) {
             correct = false;
         }
         assertEquals(true, correct);
@@ -135,89 +118,83 @@ public class miniprojektiTest {
     
     @Test
     public void testMainSuccessfullyAddCitationArticle() {
-        String userInput = "1" + System.getProperty("line.separator") + "TEST4"
-                + System.getProperty("line.separator") + "testAuthor2" +
-                System.getProperty("line.separator") + "testTitle2" +
-                System.getProperty("line.separator") + "testJournal" +
-                System.getProperty("line.separator") + "2022" +
-                System.getProperty("line.separator") + "3" +
-                System.getProperty("line.separator") + "12-15" +
-                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+        String userInput = "1" + lineSep + "testArticle"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
         boolean correct = true;
-        String expectedBeginning = "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "Citations" + System.getProperty("line.separator")
-                + "-------------" + System.getProperty("line.separator")
-                + "id: 0" + System.getProperty("line.separator")
-                + "Type: Article" + System.getProperty("line.separator")
-                + "Key: TEST4" + System.getProperty("line.separator");
-        if (!actual.contains(expectedBeginning)) {
+        String expectedEnding = "Quitting!" + lineSep
+                + lineSep
+                + "Citations" + lineSep
+                + "-------------" + lineSep
+                + "id: 0" + lineSep
+                + "Type: Article" + lineSep
+                + "Key: testArticle" + lineSep;
+        if (!actual.contains(expectedEnding)) {
             correct = false;
         }
-        if (!actual.contains("Volume: 3")) {
+        if (!actual.contains("Author: Maija Meikäläinen")) {
             correct = false;
         }
-        if (!actual.contains("Author: testAuthor2")) {
+        if (!actual.contains("Title: AI ja koodaamisen tulevaisuus")) {
             correct = false;
         }
-        if (!actual.contains("Title: testTitle2")) {
+        if (!actual.contains("Journal: JYX")) {
             correct = false;
         }
-        if (!actual.contains("Year: 2022")) {
+        if (!actual.contains("Year: 2024")) {
             correct = false;
         }
-        if (!actual.contains("Journal: testJournal")) {
+        if (!actual.contains("Volume: 12")) {
             correct = false;
         }
-        if (!actual.contains("Pages: 12-15")) {
+        if (!actual.contains("Pages: 15-23")) {
             correct = false;
         }
         assertEquals(true, correct);
     }
     
     @Test
-    public void testMainSuccessfullyAddCitationInProceedings() {
-        String userInput = "0" + System.getProperty("line.separator") + "TEST4"
-                + System.getProperty("line.separator") + "testAuthor2" +
-                System.getProperty("line.separator") + "testTitle2" +
-                System.getProperty("line.separator") + "2022" +
-                System.getProperty("line.separator") + "testBookTitle" +
-                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+    public void testMainSuccessfullyAddCitationInproceedings() {
+        String userInput = "0" + lineSep + "testInproceedings"
+                + lineSep + "Pena Penala, Leevi Leevilä, Joni Jonila"
+                + lineSep + "Suuret kielimallit yliopistoissa"
+                + lineSep + "2023"
+                + lineSep + "Tekoäly ja opiskelu"
+                + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
         boolean correct = true;
-        String expectedBeginning = "Quitting!" + System.getProperty("line.separator")
-                + System.getProperty("line.separator")
-                + "Citations" + System.getProperty("line.separator")
-                + "-------------" + System.getProperty("line.separator")
-                + "id: 0" + System.getProperty("line.separator")
-                + "Type: Inproceedings" + System.getProperty("line.separator")
-                + "Key: TEST4" + System.getProperty("line.separator");
-        if (!actual.contains(expectedBeginning)) {
+        String expectedEnding = "Quitting!" + lineSep
+                + lineSep
+                + "Citations" + lineSep
+                + "-------------" + lineSep
+                + "id: 0" + lineSep
+                + "Type: Inproceedings" + lineSep
+                + "Key: testInproceedings" + lineSep;
+        if (!actual.contains(expectedEnding)) {
             correct = false;
         }
-        if (!actual.contains("Author: testAuthor2")) {
+        if (!actual.contains("Author: Pena Penala, Leevi Leevilä, Joni Jonila")) {
             correct = false;
         }
-        if (!actual.contains("BookTitle: testBookTitle")) {
+        if (!actual.contains("Title: Suuret kielimallit yliopistoissa")) {
             correct = false;
         }
-        if (!actual.contains("Title: testTitle2")) {
+        if (!actual.contains("Year: 2023")) {
             correct = false;
         }
-        if (!actual.contains("Year: 2022")) {
+        if (!actual.contains("BookTitle: Tekoäly ja opiskelu")) {
             correct = false;
         }
         assertEquals(true, correct);
@@ -225,20 +202,17 @@ public class miniprojektiTest {
     
     @Test
     public void testMainEmptyKey() {
-        String userInput = "1" + System.getProperty("line.separator") + ""
-                + System.getProperty("line.separator") + "TEST4" +
-                System.getProperty("line.separator") + "testAuthor2" +
-                System.getProperty("line.separator") + "testTitle2" +
-                System.getProperty("line.separator") + "testJournal" +
-                System.getProperty("line.separator") + "2022" +
-                System.getProperty("line.separator") + "3" +
-                System.getProperty("line.separator") + "12-15" +
-                System.getProperty("line.separator") + "-1" + System.getProperty("line.separator");
+        String userInput = "1" + lineSep + ""
+        		+ lineSep + "testArticle"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(os);
-        System.setOut(printStream);
         Miniprojekti.main(null);
         String actual = os.toString();
         boolean correct = true;

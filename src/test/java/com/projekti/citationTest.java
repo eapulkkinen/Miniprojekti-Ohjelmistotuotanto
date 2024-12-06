@@ -9,32 +9,34 @@ import java.util.Map;
 
 public class citationTest {
 
+	String lineSep = System.getProperty("line.separator");
+	
     @Test
     public void testToStringBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Author1, Author2");
-        data.put(DataType.Title, "someTitle");
+        data.put(DataType.Author, "Kimmo Kirjailija, Anne Authori");
+        data.put(DataType.Title, "Kukkia ja muita kasveja");
         data.put(DataType.Year, "2020");
-        data.put(DataType.Publisher, "somePublisher");
+        data.put(DataType.Publisher, "Like");
         
-        Citation cit = new Citation(0, 2, "TEST1", data);
+        Citation cit = new Citation(0, 2, "testBook", data);
         String citString = cit.toString();
         boolean correct = true;
-        if (!citString.startsWith("id: 0\n"
-                + "Type: Book\n"
-                + "Key: TEST1\n")) {
+        if (!citString.startsWith("id: 0" + lineSep
+                + "Type: Book" + lineSep
+                + "Key: testBook" + lineSep)) {
             correct = false;
         }
-        if (!citString.contains("Author: Author1, Author2\n")) {
+        if (!citString.contains("Author: Kimmo Kirjailija, Anne Authori")) {
             correct = false;
         }
-        if (!citString.contains("Title: someTitle\n")) {
+        if (!citString.contains("Title: Kukkia ja muita kasveja")) {
             correct = false;
         }
-        if (!citString.contains("Publisher: somePublisher\n")) {
+        if (!citString.contains("Publisher: Like")) {
             correct = false;
         }
-        if (!citString.contains("Year: 2020\n")) {
+        if (!citString.contains("Year: 2020")) {
             correct = false;
         }
         assertEquals(true, correct);
@@ -43,29 +45,29 @@ public class citationTest {
     @Test
     public void testToStringInproceedings() {
         Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "someAuthor");
-        data.put(DataType.Title, "aTitle");
+        data.put(DataType.Author, "Kile Kirjanen");
+        data.put(DataType.Title, "Kilen kaikki");
         data.put(DataType.Year, "2005");
-        data.put(DataType.BookTitle, "aBook");
+        data.put(DataType.BookTitle, "Kilen kirja");
         
-        Citation cit = new Citation(1, 0, "TEST2", data);
+        Citation cit = new Citation(1, 0, "testInproceeding", data);
         String citString = cit.toString();
         boolean correct = true;
-        if (!citString.startsWith("id: 1\n"
-                + "Type: Inproceedings\n"
-                + "Key: TEST2\n")) {
+        if (!citString.startsWith("id: 1" + lineSep
+                + "Type: Inproceedings" + lineSep
+                + "Key: testInproceeding" + lineSep)) {
             correct = false;
         }
-        if (!citString.contains("Author: someAuthor\n")) {
+        if (!citString.contains("Author: Kile Kirjanen")) {
             correct = false;
         }
-        if (!citString.contains("Title: aTitle\n")) {
+        if (!citString.contains("Title: Kilen kaikki")) {
             correct = false;
         }
-        if (!citString.contains("Year: 2005\n")) {
+        if (!citString.contains("Year: 2005")) {
             correct = false;
         }
-        if (!citString.contains("BookTitle: aBook\n")) {
+        if (!citString.contains("BookTitle: Kilen kirja")) {
             correct = false;
         }
         assertEquals(true, correct);
@@ -74,28 +76,28 @@ public class citationTest {
     @Test
     public void testToBibTeXEntryBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Author1, Author2");
-        data.put(DataType.Title, "someTitle");
+        data.put(DataType.Author, "Kimmo Kirjailija, Anne Authori");
+        data.put(DataType.Title, "Kukkia ja muita kasveja");
         data.put(DataType.Year, "2020");
-        data.put(DataType.Publisher, "somePublisher");
+        data.put(DataType.Publisher, "Like");
         
-        Citation cit = new Citation(0, 2, "TEST1", data);
+        Citation cit = new Citation(0, 2, "bibtexBook", data);
         String citBibTeX = cit.toBibTeXEntry();
         boolean correct = true;
   
-        if (!citBibTeX.startsWith("@Book{TEST1,\n")) {
+        if (!citBibTeX.startsWith("@Book{bibtexBook,\n")) {
             correct = false;
         }
-        if (!citBibTeX.contains("author = {Author1, Author2},\n")) {
+        if (!citBibTeX.contains("author = {Kimmo Kirjailija, Anne Authori},\n")) {
             correct = false;
         }
-        if (!citBibTeX.contains("title = {someTitle},\n")) {
-            correct = false;
-        }
-        if (!citBibTeX.contains("publisher = {somePublisher},\n")) {
+        if (!citBibTeX.contains("title = {Kukkia ja muita kasveja},\n")) {
             correct = false;
         }
         if (!citBibTeX.contains("year = {2020},\n")) {
+            correct = false;
+        }
+        if (!citBibTeX.contains("publisher = {Like},\n")) {
             correct = false;
         }
         if (!citBibTeX.endsWith("}")) {
@@ -107,28 +109,28 @@ public class citationTest {
     @Test
     public void testToBibTeXEntryInproceedings() {
         Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "someAuthor");
-        data.put(DataType.Title, "aTitle");
+        data.put(DataType.Author, "Kile Kirjanen");
+        data.put(DataType.Title, "Kilen kaikki");
         data.put(DataType.Year, "2005");
-        data.put(DataType.BookTitle, "aBook");
+        data.put(DataType.BookTitle, "Kilen kirja");
         
-        Citation cit = new Citation(1, 0, "TEST2", data);
+        Citation cit = new Citation(1, 0, "bibtexInproceeding", data);
         String citBibTeX = cit.toBibTeXEntry();
         boolean correct = true;
   
-        if (!citBibTeX.startsWith("@Inproceedings{TEST2,\n")) {
+        if (!citBibTeX.startsWith("@Inproceedings{bibtexInproceeding,\n")) {
             correct = false;
         }
-        if (!citBibTeX.contains("author = {someAuthor},\n")) {
+        if (!citBibTeX.contains("author = {Kile Kirjanen},\n")) {
             correct = false;
         }
-        if (!citBibTeX.contains("title = {aTitle},\n")) {
+        if (!citBibTeX.contains("title = {Kilen kaikki},\n")) {
             correct = false;
         }
         if (!citBibTeX.contains("year = {2005},\n")) {
             correct = false;
         }
-        if (!citBibTeX.contains("booktitle = {aBook},\n")) {
+        if (!citBibTeX.contains("booktitle = {Kilen kirja},\n")) {
             correct = false;
         }
         if (!citBibTeX.endsWith("}")) {
