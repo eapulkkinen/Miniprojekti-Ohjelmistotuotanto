@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
+ * Class for Citations.
+
  * @author pelti
  * @version 1.12.2024
  *
@@ -14,7 +16,9 @@ public class Citation {
     private String key;
     private Map<DataType, String> data;
 
-    // All the different citation types
+    /**
+     * All the different citation types.
+     */
     protected enum EntryType {
         Inproceedings,
         Article,
@@ -23,6 +27,8 @@ public class Citation {
     
 
     /**
+     * Builder for citations.
+
      * @param id unique to a single quote is not the same as a key.
      * @param type 3 type selection
      * @param key key of the citation to be searched
