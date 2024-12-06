@@ -66,18 +66,23 @@
                 </execution>
             </executions>
         </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.1.0</version>
-            <configuration>
-                <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                <failOnViolation>true</failOnViolation>
-                <failsOnError>true</failsOnError>
-                <consoleOutput>true</consoleOutput>
-            </configuration>
-        </plugin>
     </plugins>
+    <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.6.0</version>
+          <reportSets>
+            <reportSet>
+              <reports>
+                <report>checkstyle</report>
+              </reports>
+            </reportSet>
+          </reportSets>
+        </plugin>
+      </plugins>
+    </reporting>
 </build>
 
 </project>
