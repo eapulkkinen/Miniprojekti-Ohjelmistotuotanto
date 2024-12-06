@@ -24,7 +24,7 @@ public class miniprojektiTest {
     PrintStream printStream = new PrintStream(os);
     
 	@BeforeEach
-	public void setOutput () {
+    public void setOutput () {
         System.setOut(printStream);
 	}
 	
