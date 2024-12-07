@@ -1,22 +1,28 @@
 package com.projekti;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * Main class for the application.
+
  * @author developers
  * @version 1.12.2024
  *
  */
 public class Miniprojekti {
-    final private List<Citation> citations = new ArrayList<Citation>();
+    private final List<Citation> citations = new ArrayList<Citation>();
     
 
+    /**
+     * Starts the program and reads user input.
+
+     * @param args args
+     */
     public static void main(String[] args) {
         Miniprojekti mini = new Miniprojekti();
         
@@ -49,9 +55,15 @@ public class Miniprojekti {
                     Map<DataType, String> data = null;
                     while (data == null) {
                         //data = mini.getData(scanner);
-                        if(type == 0) data = mini.getInProceedingsData(scanner);
-                        if(type == 1) data = mini.getArticleData(scanner);
-                        if(type == 2) data = mini.getBookData(scanner);
+                        if (type == 0) {
+                            data = mini.getInProceedingsData(scanner);
+                        }
+                        if (type == 1) {
+                            data = mini.getArticleData(scanner);
+                        }
+                        if (type == 2) {
+                            data = mini.getBookData(scanner);
+                        }
                     }
                     System.out.println("You gave the data: " + data + "\n");
 
@@ -79,7 +91,7 @@ public class Miniprojekti {
             System.out.println(mini.citations.get(i));
             System.out.println("---");
         }
-        CitationBibTeXWriter.WriteToFile(mini.citations, "entries.bib");
+        CitationBibtexWriter.writeToFile(mini.citations, "entries.bib");
         CitationPlainTextWriter.writeToFile(mini.citations, "entries.txt");
 
     }
@@ -145,7 +157,8 @@ public class Miniprojekti {
     }
 
     /**
-     * Handles the user input for the citation type
+     * Handles the user input for the citation type.
+
      * @param scanner Scanner object
      * @return integer
      * @throws InputMismatchException if the input is not an integer
@@ -160,7 +173,8 @@ public class Miniprojekti {
     }
 
     /**
-     * Handles the user input for the citation key
+     * Handles the user input for the citation key.
+
      * @param scanner Scanner object
      * @return trimmed string
      */
@@ -169,11 +183,7 @@ public class Miniprojekti {
         return scanner.nextLine().trim();
     }
 
-    /**
-     * Handles the user input for the citation data
-     * @param scanner Scanner object
-     * @return trimmed string
-     */
+
     //public String getData(Scanner scanner) {
     //    System.out.println("Give data for the citation");
     //    return scanner.nextLine().trim();

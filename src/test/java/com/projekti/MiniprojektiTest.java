@@ -1,34 +1,37 @@
 package com.projekti;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Map;
-import java.util.Scanner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class miniprojektiTest {
+/**
+ * Test class for the main application.
+ */
+public class MiniprojektiTest {
 
-	String lineSep = System.getProperty("line.separator");
-	String mainStart = "-1 TO QUIT!" + lineSep
+    String lineSep = System.getProperty("line.separator");
+    String mainStart = "-1 TO QUIT!" + lineSep
             + "Give a type:" + lineSep
             + "0: Inproceedings" + lineSep
             + "1: Article" + lineSep
             + "2: Book" + lineSep;
-	
+
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(os);
     
-	@BeforeEach
-    public void setOutput () {
+    /**
+     * Sets output to printStream before each test.
+     */
+    @BeforeEach
+    public void setOutput() {
         System.setOut(printStream);
-	}
-	
-	
+    }
+
+
     @Test
     public void testMainQuitImmediately() {
         String userInput = "-1" + lineSep;
@@ -45,15 +48,15 @@ public class miniprojektiTest {
     
     @Test
     public void testMainInvalidTypeInt() {
-    	String testNumber = "5";
-    	String userInput = testNumber + lineSep + "-1" + lineSep;
+        String testNumber = "5";
+        String userInput = testNumber + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
         String actual = os.toString();
         String expected = mainStart
-            	+ "Not a valid type! " + testNumber + lineSep
-            	+ mainStart
+                + "Not a valid type! " + testNumber + lineSep
+                + mainStart
                 + "Quitting!" + lineSep
                 + lineSep
                 + "No citations were added" + lineSep;
@@ -62,15 +65,15 @@ public class miniprojektiTest {
     
     @Test
     public void testMainInvalidTypeNonInt() {
-    	String testInput = "a";
-    	String userInput = testInput + lineSep + "-1" + lineSep;
+        String testInput = "a";
+        String userInput = testInput + lineSep + "-1" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
         String actual = os.toString();
         String expected = mainStart
-            	+ "Wrong input format: java.util.InputMismatchException" + lineSep
-            	+ mainStart
+                + "Wrong input format: java.util.InputMismatchException" + lineSep
+                + mainStart
                 + "Quitting!" + lineSep
                 + lineSep
                 + "No citations were added" + lineSep;
@@ -203,7 +206,7 @@ public class miniprojektiTest {
     @Test
     public void testMainEmptyKey() {
         String userInput = "1" + lineSep + ""
-        		+ lineSep + "testArticle"
+                + lineSep + "testArticle"
                 + lineSep + "Maija Meikäläinen"
                 + lineSep + "AI ja koodaamisen tulevaisuus"
                 + lineSep + "JYX"
@@ -217,7 +220,7 @@ public class miniprojektiTest {
         String actual = os.toString();
         boolean correct = true;
         if (!actual.contains("Key cannot be empty!")) {
-        	correct = false;
+            correct = false;
         }
         assertEquals(true, correct);
     }

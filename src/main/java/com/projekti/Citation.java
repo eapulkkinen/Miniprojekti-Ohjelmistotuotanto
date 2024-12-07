@@ -59,9 +59,11 @@ public class Citation {
     
     
     /**
+     * Creates a BibTeX string out of the citation.
+
      * @return citation as BibTeX entry string
      */
-    public String toBibTeXEntry() {
+    public String toBibtexEntry() {
         StringBuilder sb = new StringBuilder();
         sb.append("@" + EntryType.values()[type] + "{" + key + ",\n");
         for (Entry<DataType, String> v : data.entrySet()) {

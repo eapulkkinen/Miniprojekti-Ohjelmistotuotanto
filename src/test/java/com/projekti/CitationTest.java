@@ -1,16 +1,19 @@
 package com.projekti;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Test;
 
-public class citationTest {
 
-	String lineSep = System.getProperty("line.separator");
-	
+/**
+ * Test class for the Citation.java class.
+ */
+public class CitationTest {
+
+    String lineSep = System.getProperty("line.separator");
+
     @Test
     public void testToStringBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
@@ -74,7 +77,7 @@ public class citationTest {
     }
     
     @Test
-    public void testToBibTeXEntryBook() {
+    public void testToBibtexEntryBook() {
         Map<DataType, String> data = new HashMap<DataType, String>();
         data.put(DataType.Author, "Kimmo Kirjailija, Anne Authori");
         data.put(DataType.Title, "Kukkia ja muita kasveja");
@@ -82,7 +85,7 @@ public class citationTest {
         data.put(DataType.Publisher, "Like");
         
         Citation cit = new Citation(0, 2, "bibtexBook", data);
-        String citBibTeX = cit.toBibTeXEntry();
+        String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   
         if (!citBibTeX.startsWith("@Book{bibtexBook,\n")) {
@@ -107,7 +110,7 @@ public class citationTest {
     }
     
     @Test
-    public void testToBibTeXEntryInproceedings() {
+    public void testToBibtexEntryInproceedings() {
         Map<DataType, String> data = new HashMap<DataType, String>();
         data.put(DataType.Author, "Kile Kirjanen");
         data.put(DataType.Title, "Kilen kaikki");
@@ -115,7 +118,7 @@ public class citationTest {
         data.put(DataType.BookTitle, "Kilen kirja");
         
         Citation cit = new Citation(1, 0, "bibtexInproceeding", data);
-        String citBibTeX = cit.toBibTeXEntry();
+        String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   
         if (!citBibTeX.startsWith("@Inproceedings{bibtexInproceeding,\n")) {
