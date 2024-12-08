@@ -1,10 +1,10 @@
 id: 0
 Type: Article
 Key: testArticle
-Journal: JYX
-Title: AI ja koodaamisen tulevaisuus
 Year: 2024
+Title: AI ja koodaamisen tulevaisuus
+Journal: JYX
+Pages: 15-23
 Author: Maija Meikäläinen
 Volume: 12
-Pages: 15-23
 

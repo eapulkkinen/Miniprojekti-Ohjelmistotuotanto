@@ -9,25 +9,24 @@ import java.util.Scanner;
 
 /**
  * Main class for the application.
-
+ *
  * @author developers
- * @version 1.12.2024
+ * @version 8.12.2024
  *
  */
 public class Miniprojekti {
     private final List<Citation> citations = new ArrayList<Citation>();
     
-
     /**
-     * Starts the program and reads user input.
-
+     * Starts the program and reads user input. Constructs citations based on input.
+     * Writes to the 2 files.
+     *
      * @param args args
      */
     public static void main(String[] args) {
         Miniprojekti mini = new Miniprojekti();
         
-        try (
-        Scanner scanner = new Scanner(System.in)) {
+        try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 try {
                     int type = mini.getType(scanner);
@@ -158,7 +157,7 @@ public class Miniprojekti {
 
     /**
      * Handles the user input for the citation type.
-
+     *
      * @param scanner Scanner object
      * @return integer
      * @throws InputMismatchException if the input is not an integer
@@ -174,7 +173,7 @@ public class Miniprojekti {
 
     /**
      * Handles the user input for the citation key.
-
+     *
      * @param scanner Scanner object
      * @return trimmed string
      */
@@ -183,7 +182,7 @@ public class Miniprojekti {
         return scanner.nextLine().trim();
     }
 
-
+    // TODO:
     //public String getData(Scanner scanner) {
     //    System.out.println("Give data for the citation");
     //    return scanner.nextLine().trim();

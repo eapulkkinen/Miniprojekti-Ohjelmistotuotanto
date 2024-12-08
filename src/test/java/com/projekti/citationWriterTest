@@ -1,25 +1,28 @@
 package com.projekti;
-import org.junit.jupiter.api.Test;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class citationWriterTest{
-    
-    
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Test class for writing citations to a file.
+ */
+public class CitationWriterTest {
+
     @Test
-    public void eiTiedostoa(){
-        boolean correct = true; 
-        List<Citation> citations;  
-        String väärätiedosto = "/väärä_hakemisto/testi_tiedosto.txt";
+    public void eiTiedostoa() {
+        //boolean correct = true;
+        List<Citation> citations = new ArrayList<Citation>();  
+        String invalidFilePath = "/invalid/invalid.txt";
         try {
-            CitationPlainTextWriter.WriteToFile(citations, väärätiedosto);
+            CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
             fail("Expected FileNotFoundException to be thrown");
-        } catch (FileNotFoundException e) {
-            assertTrue(e.getMessage().contains("Permission denied") || e.getMessage().contains("No such file or directory"));
         } catch (Exception e) {
             fail("Expected FileNotFoundException, but got: " + e.getClass().getName());
         }
     }
-
-    
 }

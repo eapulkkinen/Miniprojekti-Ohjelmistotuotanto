@@ -11,7 +11,7 @@ public class CitationTextReader {
     
     /**
      * Reads all lines of text from given file and prints it out.
-
+     *
      * @param filename name of file which is read
      */
     public static void readFromTextFile(String filename) {

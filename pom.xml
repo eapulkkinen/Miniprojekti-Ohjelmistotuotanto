@@ -88,6 +88,7 @@
             </dependencies>
             <executions>
             	<execution>
+            	    <?m2e execute onConfiguration,onIncremental?>
                 	<id>validate</id>
                 	<phase>validate</phase>
                 	<goals>
@@ -95,7 +96,7 @@
                 	</goals>
                 </execution>
             </executions>
-        </plugin>    
+        </plugin>
      </plugins>
 </build>
 

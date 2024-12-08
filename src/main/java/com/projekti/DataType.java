@@ -1,5 +1,8 @@
 package com.projekti;
 
+/**
+ * All the data types for a citation.
+ */
 enum DataType {
     Author,
     Title,

@@ -12,7 +12,7 @@ public class CitationBibtexWriter {
 
     /**
      * Writes given citations into a file.
-
+     *
      * @param citations list of citations to write to a file
      * @param filename name for the file where citations are written
      */

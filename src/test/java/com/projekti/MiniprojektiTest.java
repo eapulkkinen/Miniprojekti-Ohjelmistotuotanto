@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
  * Test class for the main application.
  */
 public class MiniprojektiTest {
-
     String lineSep = System.getProperty("line.separator");
     String mainStart = "-1 TO QUIT!" + lineSep
             + "Give a type:" + lineSep
@@ -30,7 +29,6 @@ public class MiniprojektiTest {
     public void setOutput() {
         System.setOut(printStream);
     }
-
 
     @Test
     public void testMainQuitImmediately() {
@@ -80,10 +78,9 @@ public class MiniprojektiTest {
         assertEquals(expected, actual);
     }
     
-    
     @Test
     public void testMainSuccessfullyAddCitationBook() {
-        String userInput = "2" + lineSep + "testBook"
+        String userInput = "2" + lineSep + "M00"
                 + lineSep + "Matti Meikäläinen"
                 + lineSep + "Koodauksen perusteet"
                 + lineSep + "2000"
@@ -100,7 +97,7 @@ public class MiniprojektiTest {
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
                 + "Type: Book" + lineSep
-                + "Key: testBook" + lineSep;
+                + "Key: M00" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
@@ -118,10 +115,10 @@ public class MiniprojektiTest {
         }
         assertEquals(true, correct);
     }
-    
+
     @Test
     public void testMainSuccessfullyAddCitationArticle() {
-        String userInput = "1" + lineSep + "testArticle"
+        String userInput = "1" + lineSep + "M24"
                 + lineSep + "Maija Meikäläinen"
                 + lineSep + "AI ja koodaamisen tulevaisuus"
                 + lineSep + "JYX"
@@ -140,7 +137,7 @@ public class MiniprojektiTest {
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
                 + "Type: Article" + lineSep
-                + "Key: testArticle" + lineSep;
+                + "Key: M24" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
@@ -167,7 +164,7 @@ public class MiniprojektiTest {
     
     @Test
     public void testMainSuccessfullyAddCitationInproceedings() {
-        String userInput = "0" + lineSep + "testInproceedings"
+        String userInput = "0" + lineSep + "PLJ23"
                 + lineSep + "Pena Penala, Leevi Leevilä, Joni Jonila"
                 + lineSep + "Suuret kielimallit yliopistoissa"
                 + lineSep + "2023"
@@ -184,7 +181,7 @@ public class MiniprojektiTest {
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
                 + "Type: Inproceedings" + lineSep
-                + "Key: testInproceedings" + lineSep;
+                + "Key: PLJ23" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }

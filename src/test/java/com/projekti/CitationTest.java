@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Test class for the Citation.java class.
  */
@@ -88,7 +87,7 @@ public class CitationTest {
         String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   
-        if (!citBibTeX.startsWith("@Book{bibtexBook,\n")) {
+        if (!citBibTeX.startsWith("@book{bibtexBook,\n")) {
             correct = false;
         }
         if (!citBibTeX.contains("author = {Kimmo Kirjailija, Anne Authori},\n")) {
@@ -121,7 +120,7 @@ public class CitationTest {
         String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   
-        if (!citBibTeX.startsWith("@Inproceedings{bibtexInproceeding,\n")) {
+        if (!citBibTeX.startsWith("@inproceedings{bibtexInproceeding,\n")) {
             correct = false;
         }
         if (!citBibTeX.contains("author = {Kile Kirjanen},\n")) {
