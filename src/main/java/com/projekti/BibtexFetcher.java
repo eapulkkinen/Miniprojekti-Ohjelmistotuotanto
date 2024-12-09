@@ -46,6 +46,7 @@ public class BibtexFetcher {
      * Fetches data.
      *
      * @param doi doi id
+     * @return fetched bibtex string
      */
     public static String fetchBibtex(String doi) {
         // Use Crossref's REST API to get data
@@ -73,12 +74,14 @@ public class BibtexFetcher {
                 String inputLine;
                 StringBuilder response = new StringBuilder();
                 while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine + "\n");
+                    response.append(inputLine + System.getProperty("line.separator"));
                 }
                 in.close();
                 System.out.println("Succesfully fetched data from:\n" + apiUrl);
                 return response.toString();
-            } else {
+            }
+            //changed from else to if because else gives eclipse users an error
+            if (responseCode != 200) {
                 System.out.println("Error while fetching. Response code: " + responseCode);
                 return null;
             }
@@ -92,26 +95,28 @@ public class BibtexFetcher {
      * Formats fetched bibtex to a valid format.
      *
      * @param text text
+     * @return formatted bibtex string
      */
     public static String formatBibtex(String text) {
+        String ls = System.getProperty("line.separator");
         if (text == null) {
             return "";
         }
-        text = text.trim();
+        String text2 = text.trim();
 
-        int indexFirstComma = text.indexOf(",") + 1;
-        int indexLastCurly = text.lastIndexOf("}");
+        int indexFirstComma = text2.indexOf(",") + 1;
+        int indexLastCurly = text2.lastIndexOf("}");
         // EntryType and key
-        String start = text.substring(0, indexFirstComma).trim();
+        String start = text2.substring(0, indexFirstComma).trim();
         // DataTypes
-        String content = text.substring(indexFirstComma, indexLastCurly).trim();
+        String content = text2.substring(indexFirstComma, indexLastCurly).trim();
 
         // Regex that matches every comma that is preceded by a }
         String regex = "(?<=}),";
         // Split the content by commas not inside curly braces, (key-value pairs)
         String[] fields = content.split(regex);
 
-        StringBuilder sb = new StringBuilder(start + "\n");
+        StringBuilder sb = new StringBuilder(start + ls);
 
         for (String field : fields) {
             field = field.trim();
@@ -120,7 +125,7 @@ public class BibtexFetcher {
             int indexEqual = sbb.indexOf("=");
             sbb.insert(indexEqual + 1, " ");
             sbb.insert(indexEqual, " ");
-            sb.append(sbb).append(",\n");
+            sb.append(sbb).append("," + ls);
         }
         sb.append("}");
 
