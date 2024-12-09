@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.projekti.Citation.EntryType;
+
 /**
  * Main class for the application.
  *
@@ -15,8 +17,13 @@ import java.util.Scanner;
  *
  */
 public class Miniprojekti {
+    private final String plaintTextFileName = "entries.txt";
+    private final String bibFileName = "entries.bib";
+
     private final List<Citation> citations = new ArrayList<Citation>();
-    
+    private int currentId = 0;
+
+
     /**
      * Starts the program and reads user input. Constructs citations based on input.
      * Writes to the 2 files.
@@ -51,24 +58,25 @@ public class Miniprojekti {
                     }
                     System.out.println("You gave the key: " + key + "\n");
 
-                    Map<DataType, String> data = null;
+                    Map<Citation.DataType, String> data = null;
+                    Citation.EntryType entryType = Citation.EntryType.Inproceedings;
                     while (data == null) {
-                        //data = mini.getData(scanner);
                         if (type == 0) {
                             data = mini.getInProceedingsData(scanner);
                         }
                         if (type == 1) {
                             data = mini.getArticleData(scanner);
+                            entryType = Citation.EntryType.Article;
                         }
                         if (type == 2) {
                             data = mini.getBookData(scanner);
+                            entryType = Citation.EntryType.Book;
                         }
                     }
                     System.out.println("You gave the data: " + data + "\n");
 
-                    // Add citation, automatically calculate id 
-                    // TODO: change, removing citations could cause duplicates
-                    Citation cit = new Citation(mini.citations.size(), type, key, data);
+                    // Now keeps track of IDs
+                    Citation cit = new Citation(mini.currentId++, entryType, key, data);
                     mini.citations.add(cit);
                     System.out.println("Added citation:\n" + cit + "\n");
                 } catch (InputMismatchException e) {
@@ -90,67 +98,67 @@ public class Miniprojekti {
             System.out.println(mini.citations.get(i));
             System.out.println("---");
         }
-        CitationBibtexWriter.writeToFile(mini.citations, "entries.bib");
-        CitationPlainTextWriter.writeToFile(mini.citations, "entries.txt");
+        CitationPlainTextWriter.writeToFile(mini.citations, mini.plaintTextFileName);
+        CitationBibtexWriter.writeToFile(mini.citations, mini.bibFileName);
 
     }
 
-    private Map<DataType, String> getArticleData(Scanner scanner) {
-        Map<DataType, String> map = new HashMap<DataType, String>();
+    private Map<Citation.DataType, String> getArticleData(Scanner scanner) {
+        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
         
         System.out.println("Please input author:");
-        map.put(DataType.Author, scanner.nextLine().trim());
+        map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        map.put(DataType.Title, scanner.nextLine().trim());
+        map.put(Citation.DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input journal:");
-        map.put(DataType.Journal, scanner.nextLine().trim());
+        map.put(Citation.DataType.Journal, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        map.put(DataType.Year, scanner.nextLine().trim());
+        map.put(Citation.DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input volume:");
-        map.put(DataType.Volume, scanner.nextLine().trim());
+        map.put(Citation.DataType.Volume, scanner.nextLine().trim());
 
         System.out.println("Please input pages:");
-        map.put(DataType.Pages, scanner.nextLine().trim());
+        map.put(Citation.DataType.Pages, scanner.nextLine().trim());
 
         return map;
     }
 
-    private Map<DataType, String> getBookData(Scanner scanner) {
-        Map<DataType, String> map = new HashMap<DataType, String>();
+    private Map<Citation.DataType, String> getBookData(Scanner scanner) {
+        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
         
         System.out.println("Please input author:");
-        map.put(DataType.Author, scanner.nextLine().trim());
+        map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        map.put(DataType.Title, scanner.nextLine().trim());
+        map.put(Citation.DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        map.put(DataType.Year, scanner.nextLine().trim());
+        map.put(Citation.DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input publisher:");
-        map.put(DataType.Publisher, scanner.nextLine().trim());
+        map.put(Citation.DataType.Publisher, scanner.nextLine().trim());
         
         return map;
     }
 
-    private Map<DataType, String> getInProceedingsData(Scanner scanner) {
-        Map<DataType, String> map = new HashMap<DataType, String>();
+    private Map<Citation.DataType, String> getInProceedingsData(Scanner scanner) {
+        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
         
         System.out.println("Please input author:");
-        map.put(DataType.Author, scanner.nextLine().trim());
+        map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
         System.out.println("Please input title:");
-        map.put(DataType.Title, scanner.nextLine().trim());
+        map.put(Citation.DataType.Title, scanner.nextLine().trim());
 
         System.out.println("Please input year:");
-        map.put(DataType.Year, scanner.nextLine().trim());
+        map.put(Citation.DataType.Year, scanner.nextLine().trim());
 
         System.out.println("Please input book title:");
-        map.put(DataType.BookTitle, scanner.nextLine().trim());
+        map.put(Citation.DataType.BookTitle, scanner.nextLine().trim());
         
         return map;
     }
@@ -159,7 +167,7 @@ public class Miniprojekti {
      * Handles the user input for the citation type.
      *
      * @param scanner Scanner object
-     * @return integer
+     * @return integer matching Citation.EntryType
      * @throws InputMismatchException if the input is not an integer
      */
     public int getType(Scanner scanner) {

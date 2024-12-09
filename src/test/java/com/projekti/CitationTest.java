@@ -15,17 +15,17 @@ public class CitationTest {
 
     @Test
     public void testToStringBook() {
-        Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Kimmo Kirjailija, Anne Authori");
-        data.put(DataType.Title, "Kukkia ja muita kasveja");
-        data.put(DataType.Year, "2020");
-        data.put(DataType.Publisher, "Like");
+        Map<Citation.DataType, String> data = new HashMap<Citation.DataType, String>();
+        data.put(Citation.DataType.Author, "Kimmo Kirjailija, Anne Authori");
+        data.put(Citation.DataType.Title, "Kukkia ja muita kasveja");
+        data.put(Citation.DataType.Year, "2020");
+        data.put(Citation.DataType.Publisher, "Like");
         
-        Citation cit = new Citation(0, 2, "testBook", data);
+        Citation cit = new Citation(0, Citation.EntryType.Book, "testBook", data);
         String citString = cit.toString();
         boolean correct = true;
         if (!citString.startsWith("id: 0" + lineSep
-                + "Type: Book" + lineSep
+                + "Type: book" + lineSep
                 + "Key: testBook" + lineSep)) {
             correct = false;
         }
@@ -46,17 +46,17 @@ public class CitationTest {
     
     @Test
     public void testToStringInproceedings() {
-        Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Kile Kirjanen");
-        data.put(DataType.Title, "Kilen kaikki");
-        data.put(DataType.Year, "2005");
-        data.put(DataType.BookTitle, "Kilen kirja");
+        Map<Citation.DataType, String> data = new HashMap<Citation.DataType, String>();
+        data.put(Citation.DataType.Author, "Kile Kirjanen");
+        data.put(Citation.DataType.Title, "Kilen kaikki");
+        data.put(Citation.DataType.Year, "2005");
+        data.put(Citation.DataType.BookTitle, "Kilen kirja");
         
-        Citation cit = new Citation(1, 0, "testInproceeding", data);
+        Citation cit = new Citation(1, Citation.EntryType.Inproceedings, "testInproceeding", data);
         String citString = cit.toString();
         boolean correct = true;
         if (!citString.startsWith("id: 1" + lineSep
-                + "Type: Inproceedings" + lineSep
+                + "Type: inproceedings" + lineSep
                 + "Key: testInproceeding" + lineSep)) {
             correct = false;
         }
@@ -77,13 +77,13 @@ public class CitationTest {
     
     @Test
     public void testToBibtexEntryBook() {
-        Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Kimmo Kirjailija, Anne Authori");
-        data.put(DataType.Title, "Kukkia ja muita kasveja");
-        data.put(DataType.Year, "2020");
-        data.put(DataType.Publisher, "Like");
+        Map<Citation.DataType, String> data = new HashMap<Citation.DataType, String>();
+        data.put(Citation.DataType.Author, "Kimmo Kirjailija, Anne Authori");
+        data.put(Citation.DataType.Title, "Kukkia ja muita kasveja");
+        data.put(Citation.DataType.Year, "2020");
+        data.put(Citation.DataType.Publisher, "Like");
         
-        Citation cit = new Citation(0, 2, "bibtexBook", data);
+        Citation cit = new Citation(0, Citation.EntryType.Book, "bibtexBook", data);
         String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   
@@ -110,13 +110,14 @@ public class CitationTest {
     
     @Test
     public void testToBibtexEntryInproceedings() {
-        Map<DataType, String> data = new HashMap<DataType, String>();
-        data.put(DataType.Author, "Kile Kirjanen");
-        data.put(DataType.Title, "Kilen kaikki");
-        data.put(DataType.Year, "2005");
-        data.put(DataType.BookTitle, "Kilen kirja");
+        Map<Citation.DataType, String> data = new HashMap<Citation.DataType, String>();
+        data.put(Citation.DataType.Author, "Kile Kirjanen");
+        data.put(Citation.DataType.Title, "Kilen kaikki");
+        data.put(Citation.DataType.Year, "2005");
+        data.put(Citation.DataType.BookTitle, "Kilen kirja");
         
-        Citation cit = new Citation(1, 0, "bibtexInproceeding", data);
+        Citation cit = new Citation(
+            1, Citation.EntryType.Inproceedings, "bibtexInproceeding", data);
         String citBibTeX = cit.toBibtexEntry();
         boolean correct = true;
   

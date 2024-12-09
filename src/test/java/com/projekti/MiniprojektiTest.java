@@ -96,7 +96,7 @@ public class MiniprojektiTest {
                 + "Citations" + lineSep
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
-                + "Type: Book" + lineSep
+                + "Type: book" + lineSep
                 + "Key: M00" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
@@ -136,7 +136,7 @@ public class MiniprojektiTest {
                 + "Citations" + lineSep
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
-                + "Type: Article" + lineSep
+                + "Type: article" + lineSep
                 + "Key: M24" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
@@ -180,7 +180,7 @@ public class MiniprojektiTest {
                 + "Citations" + lineSep
                 + "-------------" + lineSep
                 + "id: 0" + lineSep
-                + "Type: Inproceedings" + lineSep
+                + "Type: inproceedings" + lineSep
                 + "Key: PLJ23" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;

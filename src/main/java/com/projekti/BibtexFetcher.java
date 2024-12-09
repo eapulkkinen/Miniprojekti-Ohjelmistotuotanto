@@ -12,11 +12,11 @@ import java.net.URL;
  * Class for fetching Bibtex-type data from a url.
  *
  * @author Juuso
- * @version 8.12.2024
+ * @version 9.12.2024
  */
 public class BibtexFetcher {
     /**
-     * asd.
+     * Main program to test fetching and formatting.
      *
      * @param args args
      */
@@ -117,14 +117,24 @@ public class BibtexFetcher {
         String[] fields = content.split(regex);
 
         StringBuilder sb = new StringBuilder(start + ls);
-
         for (String field : fields) {
             field = field.trim();
+            // Don't add unnecessary fields
+            boolean matchesDataType = false;
+            for (Citation.DataType dataType : Citation.DataType.values()) {
+                if (field.startsWith(dataType.name().toLowerCase())) {
+                    matchesDataType = true;
+                    break;
+                }
+            }
+            if (!matchesDataType) {
+                continue;
+            }
             StringBuilder sbb = new StringBuilder(field);
             // Add spacing
-            int indexEqual = sbb.indexOf("=");
-            sbb.insert(indexEqual + 1, " ");
-            sbb.insert(indexEqual, " ");
+            int indexEqualSign = sbb.indexOf("=");
+            sbb.insert(indexEqualSign + 1, " ");
+            sbb.insert(indexEqualSign, " ");
             sb.append(sbb).append("," + ls);
         }
         sb.append("}");
