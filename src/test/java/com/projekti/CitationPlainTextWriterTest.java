@@ -14,7 +14,7 @@ public class CitationPlainTextWriterTest {
     public void testFileNotFoundException() throws FileNotFoundException {
         List<Citation> citations = new ArrayList<>();
         String invalidFilePath = "invalid/path/to/file.txt";
-        CitationPlainTextWriter.WriteToFile(citations, invalidFilePath);
+        CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
     }
 
     @SuppressWarnings("resource")
