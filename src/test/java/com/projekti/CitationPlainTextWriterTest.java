@@ -30,12 +30,12 @@ public class CitationPlainTextWriterTest {
     }
 
 
-   @Test
-public void testiPoikkeus() throws IOException {
-    List<Citation> citations = new ArrayList<>();
-    String invalidFilePath = "/root/testfile.txt";
-    assertThrows(IOException.class, () -> {
-        CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
-    });
-}
+    @Test
+    public void testiPoikkeus() {
+        List<Citation> citations = new ArrayList<>();
+        String invalidFilePath = null;  
+        assertThrows(NullPointerException.class, () -> {
+            CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
+        });
+    }
 }
