@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class citationWriterTest {
+public class CitationPlainTextWriterTest {
 
     @Test
     public void testFileNotFoundException() throws FileNotFoundException {
