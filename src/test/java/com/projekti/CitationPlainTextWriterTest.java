@@ -35,7 +35,7 @@ public void testiPoikkeus() throws IOException {
     List<Citation> citations = new ArrayList<>();
     String invalidFilePath = "/root/testfile.txt";
     assertThrows(IOException.class, () -> {
-        CitationPlainTextWriter.WriteToFile(citations, invalidFilePath);
+        CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
     });
 }
 }
