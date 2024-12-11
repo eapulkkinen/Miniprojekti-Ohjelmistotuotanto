@@ -13,12 +13,18 @@ import org.junit.jupiter.api.Test;
  */
 public class MiniprojektiTest {
     String lineSep = System.getProperty("line.separator");
-    String mainStart = "-1 TO QUIT!" + lineSep
-            + "Give a type:" + lineSep
-            + "0: Inproceedings" + lineSep
-            + "1: Article" + lineSep
-            + "2: Book" + lineSep;
+    String mainStart = "Give a command:"
+        + lineSep + "q -> quit"
+        + lineSep + "add -> add a citation"
+        + lineSep + "add doi -> add a citation using doi"
+        + lineSep + "remove -> remove a citation"
+        + lineSep;
 
+    String addStart = "Give a type:" + lineSep
+        + "0: Inproceedings" + lineSep
+        + "1: Article" + lineSep
+        + "2: Book" + lineSep;
+    
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(os);
     
@@ -32,7 +38,7 @@ public class MiniprojektiTest {
 
     @Test
     public void testMainQuitImmediately() {
-        String userInput = "-1" + lineSep;
+        String userInput = "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
@@ -47,12 +53,13 @@ public class MiniprojektiTest {
     @Test
     public void testMainInvalidTypeInt() {
         String testNumber = "5";
-        String userInput = testNumber + lineSep + "-1" + lineSep;
+        String userInput = "add" + lineSep + testNumber + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
         String actual = os.toString();
         String expected = mainStart
+                + addStart
                 + "Not a valid type! " + testNumber + lineSep
                 + mainStart
                 + "Quitting!" + lineSep
@@ -64,28 +71,29 @@ public class MiniprojektiTest {
     @Test
     public void testMainInvalidTypeNonInt() {
         String testInput = "a";
-        String userInput = testInput + lineSep + "-1" + lineSep;
+        String userInput = "add" + lineSep + testInput + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
         String actual = os.toString();
         String expected = mainStart
+                + addStart
                 + "Wrong input format: java.util.InputMismatchException" + lineSep
                 + mainStart
-                + "Quitting!" + lineSep
-                + lineSep
+                + "Quitting!" + lineSep + lineSep
                 + "No citations were added" + lineSep;
         assertEquals(expected, actual);
     }
     
     @Test
     public void testMainSuccessfullyAddCitationBook() {
-        String userInput = "2" + lineSep + "M00"
+        String userInput = "add" + lineSep + "2" 
+                + lineSep + "M00"
                 + lineSep + "Matti Meikäläinen"
                 + lineSep + "Koodauksen perusteet"
                 + lineSep + "2000"
                 + lineSep + "Otava"
-                + lineSep + "-1" + lineSep;
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
@@ -118,14 +126,15 @@ public class MiniprojektiTest {
 
     @Test
     public void testMainSuccessfullyAddCitationArticle() {
-        String userInput = "1" + lineSep + "M24"
+        String userInput = "add" + lineSep + "1" 
+                + lineSep + "M24"
                 + lineSep + "Maija Meikäläinen"
                 + lineSep + "AI ja koodaamisen tulevaisuus"
                 + lineSep + "JYX"
                 + lineSep + "2024"
                 + lineSep + "12"
                 + lineSep + "15-23"
-                + lineSep + "-1" + lineSep;
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
@@ -164,12 +173,13 @@ public class MiniprojektiTest {
     
     @Test
     public void testMainSuccessfullyAddCitationInproceedings() {
-        String userInput = "0" + lineSep + "PLJ23"
+        String userInput = "add" + lineSep + "0"
+                + lineSep + "PLJ23"
                 + lineSep + "Pena Penala, Leevi Leevilä, Joni Jonila"
                 + lineSep + "Suuret kielimallit yliopistoissa"
                 + lineSep + "2023"
                 + lineSep + "Tekoäly ja opiskelu"
-                + lineSep + "-1" + lineSep;
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
@@ -202,7 +212,8 @@ public class MiniprojektiTest {
     
     @Test
     public void testMainEmptyKey() {
-        String userInput = "1" + lineSep + ""
+        String userInput = "add" + lineSep + "1"
+                + lineSep + ""
                 + lineSep + "testArticle"
                 + lineSep + "Maija Meikäläinen"
                 + lineSep + "AI ja koodaamisen tulevaisuus"
@@ -210,7 +221,7 @@ public class MiniprojektiTest {
                 + lineSep + "2024"
                 + lineSep + "12"
                 + lineSep + "15-23"
-                + lineSep + "-1" + lineSep;
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
