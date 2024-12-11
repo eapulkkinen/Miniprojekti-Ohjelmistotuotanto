@@ -11,30 +11,32 @@ import java.util.Scanner;
  * Main class for the application.
  *
  * @author developers
- * @version 8.12.2024
+ * @version 11.12.2024
  *
  */
 public class Miniprojekti {
     private final String plaintTextFileName = "entries.txt";
     private final String bibFileName = "entries.bib";
 
+    // A list for manually added citations
     private final List<Citation> citations = new ArrayList<Citation>();
-    private int currentId = 0;
+    // A list for citations added via doi
+    private final List<String> citationsDoi = new ArrayList<String>();
+    private int currentId = 0; // TODO: most likely will be removed, no need for id
 
     /**
      * Starts the program and reads user input. Constructs citations based on input.
-     * Writes to the 2 files.
+     * Writes to the 2 files using writer classes.
      *
      * @param args args
      */
     public static void main(String[] args) {
         Miniprojekti mini = new Miniprojekti();
-        
+
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                try {                    
-                    String lineSep =  System.getProperty("line.separator");
-
+                try {
+                    String lineSep = System.getProperty("line.separator");
                     String command = mini.getCommand(scanner);
                     boolean invalidCommand = false;
                     if (command.matches("q")) {
@@ -55,28 +57,38 @@ public class Miniprojekti {
                     if (invalidCommand) {
                         continue;
                     }
-
                 } catch (InputMismatchException e) {
                     scanner.nextLine(); // Infinite loop without
                     System.out.println("Wrong input format: " + e);
-                } // finally {
-                    // System.out.println("Input something valid");
-                    // scanner.close();
-                // }
+                }
             }
         }
-        if (mini.citations.size() == 0) {
+        if (mini.citations.size() == 0 && mini.citationsDoi.size() == 0) {
             System.out.println("No citations were added");
             return;
         }
-        System.out.println("Citations");
+        mini.printCitations();
+        CitationPlainTextWriter.writeToFile(mini.citations, mini.plaintTextFileName);
+        CitationBibtexWriter.writeToFile(mini.citations, mini.citationsDoi, mini.bibFileName);
+    }
+
+    /**
+     * Prints added citations. TODO: remove?
+     */
+    private void printCitations() {
+        System.out.println("Citations:");
         System.out.println("-------------");
-        for (int i = 0; i < mini.citations.size(); i++) {
-            System.out.println(mini.citations.get(i));
+        for (int i = 0; i < this.citations.size(); i++) {
+            System.out.println(this.citations.get(i));
             System.out.println("---");
         }
-        CitationPlainTextWriter.writeToFile(mini.citations, mini.plaintTextFileName);
-        CitationBibtexWriter.writeToFile(mini.citations, mini.bibFileName);
+        if (this.citationsDoi.size() != 0) {
+            System.out.println("Bibtex via doi:");
+            for (int i = 0; i < this.citationsDoi.size(); i++) {
+                System.out.println(this.citationsDoi.get(i));
+                System.out.println("---");
+            }
+        }
     }
 
     /**
@@ -138,7 +150,7 @@ public class Miniprojekti {
         // Now keeps track of IDs
         Citation cit = new Citation(this.currentId++, entryType, key, data);
         this.citations.add(cit);
-        System.out.println("Added citation:\n" + cit + "\n");
+        System.out.println("Added citation:\n" + cit);
         return true;
     }
 
@@ -151,19 +163,20 @@ public class Miniprojekti {
     private boolean addCitationDoi(Scanner scanner) {
         System.out.println("Input doi:");
         String doi = scanner.next().trim();
+        scanner.nextLine();
         String result = BibtexFetcher.fetchBibtex(doi);
         if (result == null) {
-            scanner.nextLine();
             return false;
         }
         result = BibtexFetcher.formatBibtex(result);
-        // TODO: Writing to file...
+        this.citationsDoi.add(result);
+        System.out.println("Added citation via doi: " + doi + "\n");
         return true;
     }
-    
+
     private Map<Citation.DataType, String> getArticleData(Scanner scanner) {
         Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
-        
+
         System.out.println("Please input author:");
         map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
@@ -187,7 +200,7 @@ public class Miniprojekti {
 
     private Map<Citation.DataType, String> getBookData(Scanner scanner) {
         Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
-        
+
         System.out.println("Please input author:");
         map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
@@ -199,13 +212,13 @@ public class Miniprojekti {
 
         System.out.println("Please input publisher:");
         map.put(Citation.DataType.Publisher, scanner.nextLine().trim());
-        
+
         return map;
     }
 
     private Map<Citation.DataType, String> getInProceedingsData(Scanner scanner) {
         Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
-        
+
         System.out.println("Please input author:");
         map.put(Citation.DataType.Author, scanner.nextLine().trim());
 
@@ -217,7 +230,7 @@ public class Miniprojekti {
 
         System.out.println("Please input book title:");
         map.put(Citation.DataType.BookTitle, scanner.nextLine().trim());
-        
+
         return map;
     }
 
@@ -246,10 +259,4 @@ public class Miniprojekti {
         System.out.println("Give a key for the citation:");
         return scanner.nextLine().trim();
     }
-
-    // TODO:
-    //public String getData(Scanner scanner) {
-    //    System.out.println("Give data for the citation");
-    //    return scanner.nextLine().trim();
-    //}
 }

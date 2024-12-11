@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Class to read from a file.
  */
 public class TextReader {
-   
+
     /**
      * Reads the content of a file and prints it.
      *

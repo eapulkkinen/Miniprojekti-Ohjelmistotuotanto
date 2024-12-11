@@ -14,12 +14,17 @@ public class CitationBibtexWriter {
      * Writes given citations into a file.
      *
      * @param citations list of citations to write to a file
+     * @param citationsDoi list of citations added via doi
      * @param filename name for the file where citations are written
      */
-    public static void writeToFile(List<Citation> citations, String filename) {
+    public static void writeToFile(
+        List<Citation> citations, List<String> citationsDoi, String filename) {
         try (PrintWriter writer = new PrintWriter(filename, "UTF-8")) {
             for (Citation c : citations) {
                 writer.println(c.toBibtexEntry());
+            }
+            for (String s : citationsDoi) {
+                writer.println(s);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

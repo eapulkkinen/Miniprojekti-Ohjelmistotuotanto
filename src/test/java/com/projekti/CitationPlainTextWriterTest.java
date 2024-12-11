@@ -16,7 +16,7 @@ public class CitationPlainTextWriterTest {
 
     @Test
     public void testFileNotFoundException() throws FileNotFoundException {
-        List<Citation> citations = new ArrayList<>();
+        List<Citation> citations = new ArrayList<Citation>();
         String invalidFilePath = "invalid/path/to/file.txt";
         CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
     }
@@ -33,10 +33,9 @@ public class CitationPlainTextWriterTest {
         }
     }
 
-
     @Test
     public void testiPoikkeus() {
-        List<Citation> citations = new ArrayList<>();
+        List<Citation> citations = new ArrayList<Citation>();
         String invalidFilePath = null;  
         assertThrows(NullPointerException.class, () -> {
             CitationPlainTextWriter.writeToFile(citations, invalidFilePath);
