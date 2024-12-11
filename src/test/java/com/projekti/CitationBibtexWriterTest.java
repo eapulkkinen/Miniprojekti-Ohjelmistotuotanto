@@ -1,17 +1,17 @@
-package com.projekti; 
-import org.junit.jupiter.api.Test;
+package com.projekti;
 
-import com.projekti.Citation;
-import com.projekti.CitationBibtexWriter;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for CitationBibtexWriter class.
+ */
 public class CitationBibtexWriterTest {
 
     @Test

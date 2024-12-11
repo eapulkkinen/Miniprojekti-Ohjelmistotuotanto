@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for the BibtexFetcher.java class.
+ * Test class for BibtexFetcher class.
  */
 public class BibtexFetcherTest {
     

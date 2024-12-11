@@ -1,5 +1,8 @@
 package com.projekti;
 
-public class textReaderTest {
+/**
+ * Test class for TextReader class.
+ */
+public class TextReaderTest {
     
 }

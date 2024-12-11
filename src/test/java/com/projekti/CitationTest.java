@@ -7,7 +7,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for the Citation.java class.
+ * Test class for Citation class.
  */
 public class CitationTest {
 

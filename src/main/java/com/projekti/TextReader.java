@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class TextReader{
+/**
+ * Class to read from a file.
+ */
+public class TextReader {
    
     /**
-     * Tulostaa tiedoston sisällön
+     * Reads the content of a file and prints it.
      *
-     * @param filename tulostettavan tiedoston nimi
+     * @param filename the name of the file
      */
     public static void readFromTextFile(String filename) {
         try (Scanner input = new Scanner(new File(filename))) {

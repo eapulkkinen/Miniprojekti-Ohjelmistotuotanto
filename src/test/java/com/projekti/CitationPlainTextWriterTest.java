@@ -1,13 +1,17 @@
 package com.projekti;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for CitationPlainTextWriter class.
+ */
 public class CitationPlainTextWriterTest {
 
     @Test
