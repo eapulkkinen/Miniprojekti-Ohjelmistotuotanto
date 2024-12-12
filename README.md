@@ -10,3 +10,5 @@ Definition of Done
 - Toteutetulla koodilla on kohtuullisen kattava testaus.
 - Asiakas on päässyt näkemään ja hyväksymään ominaisuuden käytännössä.
 - Koodin ylläpidettävyyden tulee olla mahdollisimman hyvä ja skaalautuva.
+
+[Retrospektiivi](/retro.md)
