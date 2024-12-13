@@ -18,6 +18,7 @@ public class MiniprojektiTest {
             + lineSep + "add -> add a citation"
             + lineSep + "add doi -> add a citation using doi"
             + lineSep + "remove -> remove a citation"
+            + lineSep + "list -> list all citations"
             + lineSep;
 
     String addStart = "Give a type:" + lineSep
@@ -27,6 +28,7 @@ public class MiniprojektiTest {
 
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(os);
+    String[] args = {"test"};
 
     /**
      * Sets output to printStream before each test.
@@ -41,7 +43,7 @@ public class MiniprojektiTest {
         String userInput = "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         String expected = mainStart
                 + "Quitting!" + lineSep
@@ -56,7 +58,7 @@ public class MiniprojektiTest {
         String userInput = "add" + lineSep + testNumber + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         String expected = mainStart
                 + addStart
@@ -74,7 +76,7 @@ public class MiniprojektiTest {
         String userInput = "add" + lineSep + testInput + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         String expected = mainStart
                 + addStart
@@ -96,7 +98,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Quitting!" + lineSep
@@ -137,7 +139,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Quitting!" + lineSep
@@ -182,7 +184,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Quitting!" + lineSep
@@ -216,7 +218,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Citations:" + lineSep
@@ -256,7 +258,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Error while fetching. Response code: 404" + lineSep
@@ -274,7 +276,7 @@ public class MiniprojektiTest {
         String userInput = "remove" + lineSep  + "invalid" + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Couldn't find citation with key: invalid";
@@ -290,7 +292,7 @@ public class MiniprojektiTest {
                 + lineSep + "remove" + lineSep  + "Kuismin_2022" + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Removed citation with key: Kuismin_2022";
@@ -305,7 +307,7 @@ public class MiniprojektiTest {
         String userInput = "invalid" + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Invalid command!" + lineSep + lineSep
@@ -332,7 +334,7 @@ public class MiniprojektiTest {
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        Miniprojekti.main(null);
+        Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
         if (!actual.contains("Key cannot be empty!")) {

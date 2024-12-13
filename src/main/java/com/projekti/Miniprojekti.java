@@ -35,8 +35,13 @@ public class Miniprojekti {
      * @param args args
      */
     public static void main(String[] args) {
+        String bibtexFile;
+        if (args[0] == null) bibtexFile = "entries.bib";
+        else {
+            bibtexFile = args[0];
+        }
         Miniprojekti mini = new Miniprojekti();
-        if (new File("entries.bib").isFile()) mini.getCitationsFromBibtexFile();
+        if (new File(bibtexFile).isFile()) mini.getCitationsFromBibtexFile();
         
 
         try (Scanner scanner = new Scanner(System.in)) {
