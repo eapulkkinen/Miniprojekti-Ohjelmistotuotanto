@@ -84,4 +84,49 @@ public class BibtexFetcherTest {
         String expected = "";
         assertEquals(expected, formatted);
     }
+    
+    @Test
+    public void testGetCitationFromBibtex() {
+        String bibtex = "@article{Kuismin_2022," + lineSep
+            + "publisher = {Sananjalka}," + lineSep
+            + "title = {Palava rakkaus ja öljy pumpulissa: "
+            + "Lemmenviestit, huumori ja kirjallistuminen "
+            + "suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun}," + lineSep
+            + "volume = {64}," + lineSep
+            + "year = {2022}," + lineSep
+            + "author = {Kuismin, Anna}," + lineSep
+            + "journal = {Sananjalka}," + lineSep
+            + "}";
+        Citation cit = BibtexFetcher.getCitationFromBibtex(bibtex, 0);
+        String toBibtex = cit.toBibtexEntry();
+        boolean correct = true;
+        
+        if (!toBibtex.startsWith("@article{Kuismin_2022,")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("publisher = {Sananjalka},")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("title = {Palava rakkaus ja öljy pumpulissa: "
+                + "Lemmenviestit, huumori ja kirjallistuminen "
+                + "suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun},")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("volume = {64},")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("year = {2022},")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("author = {Kuismin, Anna},")) {
+            correct = false;
+        }
+        if (!toBibtex.contains("journal = {Sananjalka},")) {
+            correct = false;
+        }
+        if (!toBibtex.endsWith("}")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
 }

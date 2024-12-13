@@ -89,6 +89,8 @@ public class Citation {
     }
     
     /**
+     * Returns the key of the citation.
+     *
      * @return the key of the citation
      */
     public String getKey() {

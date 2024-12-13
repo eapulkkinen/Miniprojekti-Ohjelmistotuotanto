@@ -161,59 +161,11 @@ public class Miniprojekti {
             return false;
         }
         result = BibtexFetcher.formatBibtex(result);
-        getCitationFromBibtex(result);
+        Citation cit = BibtexFetcher.getCitationFromBibtex(result, this.currentId);
+        this.currentId++;
+        this.citations.add(cit);
         System.out.println("Added citation via doi: " + doi + "\n");
         return true;
-    }
-    
-    /**
-     * Turns a bibtex string into a citation
-     *
-     * @param bibtex a bibtex string
-     */
-    private void getCitationFromBibtex(String bibtex) {
-        String[] lines = bibtex.split(System.getProperty("line.separator"));
-        Citation.EntryType entryType = Citation.EntryType.Inproceedings;
-        if (lines[0].startsWith("@book")) {
-            entryType = Citation.EntryType.Book;
-        }
-        if (lines[0].startsWith("@article")) {
-            entryType = Citation.EntryType.Article;
-        }
-        String key = lines[0].substring(lines[0].lastIndexOf("{") + 1, lines[0].length()-1);
-        
-        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
-        for (int i = 1; i < lines.length-1; i++) {
-            String data = lines[i].substring(0, lines[i].indexOf(" "));
-            String value = lines[i].substring(lines[i].indexOf("{")+1, lines[i].indexOf("}"));
-            if (data.equals("author")) {
-                map.put(Citation.DataType.Author, value);
-            }
-            if (data.equals("title")) {
-                map.put(Citation.DataType.Title, value);
-            }
-            if (data.equals("year")) {
-                map.put(Citation.DataType.Year, value);
-            }
-            if (data.equals("publisher")) {
-                map.put(Citation.DataType.Publisher, value);
-            }
-            if (data.equals("journal")) {
-                map.put(Citation.DataType.Journal, value);
-            }
-            if (data.equals("volume")) {
-                map.put(Citation.DataType.Volume, value);
-            }
-            if (data.equals("pages")) {
-                map.put(Citation.DataType.Pages, value);
-            }
-            if (data.equals("booktitle")) {
-                map.put(Citation.DataType.BookTitle, value);
-            }
-        }
-        
-        Citation cit = new Citation(this.currentId++, entryType , key, map);
-        this.citations.add(cit);
     }
     
     /**

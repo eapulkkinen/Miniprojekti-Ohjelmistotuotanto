@@ -212,8 +212,6 @@ public class MiniprojektiTest {
 
     @Test
     public void testMainSuccessfullyAddCitationViaDoi() {
-        //TODO fix
-        /**
         String userInput = "add doi" + lineSep + "10.30673/sja.119791"
                 + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
@@ -223,24 +221,33 @@ public class MiniprojektiTest {
         boolean correct = true;
         String expectedEnding = "Citations:" + lineSep
                 + "-------------" + lineSep
-                + "Bibtex via doi:" + lineSep
-                + "@article{Kuismin_2022," + lineSep
-                + "title = {Palava rakkaus ja öljy pumpulissa: "
-                + "Lemmenviestit, huumori ja kirjallistuminen "
-                + "suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun},"
-                + lineSep
-                + "volume = {64}," + lineSep
-                + "journal = {Sananjalka}," + lineSep
-                + "publisher = {Sananjalka}," + lineSep
-                + "author = {Kuismin, Anna}," + lineSep
-                + "year = {2022}," + lineSep
-                + "}" + lineSep
-                + "---";
+                + "id: 0" + lineSep
+                + "Type: article" + lineSep
+                + "Key: Kuismin_2022" + lineSep;
         if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }      
+        if (!actual.contains("Title: Palava rakkaus ja öljy pumpulissa: "
+                + "Lemmenviestit, huumori ja kirjallistuminen "
+                + "suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun")) {
+            correct = false;
+        }
+        if (!actual.contains("Volume: 64")) {
+            correct = false;
+        }
+        if (!actual.contains("Journal: Sananjalka")) {
+            correct = false;
+        }
+        if (!actual.contains("Publisher: Sananjalka")) {
+            correct = false;
+        }
+        if (!actual.contains("Author: Kuismin, Anna")) {
+            correct = false;
+        }
+        if (!actual.contains("Year: 2022")) {
             correct = false;
         }
         assertEquals(true, correct);
-        */
     }
 
     @Test
@@ -263,24 +270,34 @@ public class MiniprojektiTest {
     }
 
     @Test
-    public void testMainCommandRemove() {
-        //TODO fix
-        /**
-        String userInput = "remove" + lineSep + "q" + lineSep;
+    public void testMainCommandRemoveInvalidKey() {
+        String userInput = "remove" + lineSep  + "invalid" + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(null);
         String actual = os.toString();
         boolean correct = true;
-        String expectedEnding = "Removing not implemented yet!" + lineSep + lineSep
-                + mainStart
-                + "Quitting!" + lineSep + lineSep
-                + "No citations were added" + lineSep;
+        String expectedEnding = "Couldn't find citation with key: invalid";
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
         assertEquals(true, correct);
-        */
+    }
+    
+    @Test
+    public void testMainCommandRemoveSuccessfully() {
+        String userInput = "add doi" + lineSep + "10.30673/sja.119791"
+                + lineSep + "remove" + lineSep  + "Kuismin_2022" + lineSep + "q" + lineSep;
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(null);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Removed citation with key: Kuismin_2022";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
     }
 
     @Test
