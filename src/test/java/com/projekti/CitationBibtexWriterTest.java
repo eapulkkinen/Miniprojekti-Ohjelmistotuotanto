@@ -17,9 +17,8 @@ public class CitationBibtexWriterTest {
     @Test
     public void testFileNotFoundException() throws FileNotFoundException {
         List<Citation> citations = new ArrayList<Citation>();
-        List<String> citationsDoi = new ArrayList<String>();
         String invalidFilePath = "invalid/path/to/file.txt";
-        CitationBibtexWriter.writeToFile(citations, citationsDoi, invalidFilePath);
+        CitationBibtexWriter.writeToFile(citations, invalidFilePath);
     }
 
     @SuppressWarnings("resource")
@@ -37,10 +36,9 @@ public class CitationBibtexWriterTest {
     @Test
     public void testiPoikkeus() {
         List<Citation> citations = new ArrayList<Citation>();
-        List<String> citationsDoi = new ArrayList<String>();
         String invalidFilePath = null;
         assertThrows(NullPointerException.class, () -> {
-            CitationBibtexWriter.writeToFile(citations, citationsDoi, invalidFilePath);
+            CitationBibtexWriter.writeToFile(citations, invalidFilePath);
         });
     }
 }

@@ -87,4 +87,11 @@ public class Citation {
         sb.append("}");
         return sb.toString();
     }
+    
+    /**
+     * @return the key of the citation
+     */
+    public String getKey() {
+        return this.key;
+    }
 }
