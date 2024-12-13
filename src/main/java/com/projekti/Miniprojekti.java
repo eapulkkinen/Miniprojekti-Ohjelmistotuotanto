@@ -36,7 +36,7 @@ public class Miniprojekti {
      */
     public static void main(String[] args) {
         String bibtexFile;
-        if (args[0] == null) bibtexFile = "entries.bib";
+        if (args.length == 0) bibtexFile = "entries.bib";
         else {
             bibtexFile = args[0];
         }
