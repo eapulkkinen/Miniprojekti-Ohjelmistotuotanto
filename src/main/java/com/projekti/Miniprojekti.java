@@ -1,7 +1,11 @@
 package com.projekti;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -32,6 +36,8 @@ public class Miniprojekti {
      */
     public static void main(String[] args) {
         Miniprojekti mini = new Miniprojekti();
+        if (new File("entries.bib").isFile()) mini.getCitationsFromBibtexFile();
+        
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
@@ -48,6 +54,15 @@ public class Miniprojekti {
                         invalidCommand = mini.addCitationDoi(scanner);
                     } else if (command.matches("remove")) {
                         invalidCommand = mini.removeCitation(scanner);
+                    } else if (command.matches("list")) {
+                        if (mini.citations.size() == 0) {
+                            invalidCommand = true;
+                        }
+                        else {
+                            System.out.println(""); 
+                            mini.printCitations();
+                            invalidCommand = false;
+                        }
                     } else {
                         System.out.println("Invalid command!" + lineSep);
                         invalidCommand = true;
@@ -95,6 +110,7 @@ public class Miniprojekti {
         System.out.println("add -> add a citation");
         System.out.println("add doi -> add a citation using doi");
         System.out.println("remove -> remove a citation");
+        System.out.println("list -> list all citations");
         return scanner.nextLine().trim().toLowerCase();
     }
 
@@ -278,5 +294,42 @@ public class Miniprojekti {
     public String getKey(Scanner scanner) {
         System.out.println("Give a key for the citation:");
         return scanner.nextLine().trim();
+    }
+    
+    /**
+     * Reads bibtex entries from entries.bib and adds them to citations list
+     */
+    public void getCitationsFromBibtexFile() {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader; 
+        try {
+            reader = new BufferedReader(new FileReader("entries.bib"));
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("}")) {
+                        sb.append(line);
+                        Citation cit = BibtexFetcher.getCitationFromBibtex(sb.toString(), currentId);
+                        currentId++;
+                        this.citations.add(cit);
+                        //System.out.print(sb.toString());
+                        sb.setLength(0);
+                    }
+                    else {
+                        sb.append(line + System.getProperty("line.separator"));
+                    }
+                }
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }          
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
     }
 }

@@ -1,10 +1,20 @@
 id: 0
 Type: article
-Key: Kuismin_2022
+Key: Mertala_2022
+Journal: Kasvatus &amp; Aika
+Volume: 16
+Author: Mertala, Pekka
+Publisher: Kasvatus ja Aika
 Year: 2022
-Author: Kuismin, Anna
-Volume: 64
-Publisher: Sananjalka
-Title: Palava rakkaus ja öljy pumpulissa: Lemmenviestit, huumori ja kirjallistuminen suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun
+Title: Koneluettava lapsi?: Opetuksen datafikaatio ja automaatio Minä–Se -suhteiden tuotantokoneistona
+
+id: 1
+Type: article
+Key: Kuismin_2022
 Journal: Sananjalka
+Volume: 64
+Author: Kuismin, Anna
+Publisher: Sananjalka
+Year: 2022
+Title: Palava rakkaus ja öljy pumpulissa: Lemmenviestit, huumori ja kirjallistuminen suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun
 
