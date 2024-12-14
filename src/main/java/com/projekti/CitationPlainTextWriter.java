@@ -1,8 +1,7 @@
 package com.projekti;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -11,22 +10,18 @@ import java.util.List;
 public class CitationPlainTextWriter {
 
     /**
-    * Writes citations given by the user to a text file.
-    *
-    * @param citations a list of citations
-    * @param filename name for the new file
-    */
+     * Writes given citations into a file to plain string format.
+     *
+     * @param citations list of the citations
+     * @param filename  name for the file
+     */
     public static void writeToFile(List<Citation> citations, String filename) {
-        try (PrintWriter writer = new PrintWriter(filename, "UTF-8")) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
             for (Citation c : citations) {
                 writer.println(c.toString());
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw e;
         }
     }
 }

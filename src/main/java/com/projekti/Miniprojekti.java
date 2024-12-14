@@ -2,13 +2,11 @@ package com.projekti;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -36,71 +34,80 @@ public class Miniprojekti {
      */
     public static void main(String[] args) {
         String bibtexFile;
-        if (args.length == 0) bibtexFile = "entries.bib";
-        else {
+        if (args.length == 0) { 
+            bibtexFile = "entries.bib";
+        } else {
             bibtexFile = args[0];
         }
-        Miniprojekti mini = new Miniprojekti();
-        if (new File(bibtexFile).isFile()) mini.getCitationsFromBibtexFile();
-        
 
+        Miniprojekti mini = new Miniprojekti();
+        if (new File(bibtexFile).isFile()) {
+            mini.getCitationsFromBibtexFile();
+        }
+        
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                try {
-                    String lineSep = System.getProperty("line.separator");
-                    String command = mini.getCommand(scanner);
-                    boolean invalidCommand = false;
-                    if (command.matches("q")) {
-                        System.out.println("Quitting!" + lineSep);
-                        break;
-                    } else if (command.matches("add")) {
-                        invalidCommand = mini.addCitation(scanner);
-                    } else if (command.matches("add doi")) {
-                        invalidCommand = mini.addCitationDoi(scanner);
-                    } else if (command.matches("remove")) {
-                        invalidCommand = mini.removeCitation(scanner);
-                    } else if (command.matches("list")) {
-                        if (mini.citations.size() == 0) {
-                            invalidCommand = true;
-                        }
-                        else {
-                            System.out.println(""); 
-                            mini.printCitations();
-                            invalidCommand = false;
-                        }
+                String lineSep = System.getProperty("line.separator");
+                String command = mini.getCommand(scanner);
+                if (command.matches("q")) {
+                    System.out.println("Quitting!" + lineSep);
+                    break;
+                } else if (command.matches("add")) {
+                    mini.addCitation(scanner);
+                } else if (command.matches("add doi")) {
+                    mini.addCitationDoi(scanner);
+                } else if (command.matches("remove")) {
+                    mini.removeCitation(scanner);
+                } else if (command.matches("list")) {
+                    if (mini.citations.size() != 0) {
+                        System.out.println("");
+                        mini.printCitationKeys();
+                        mini.printCitations();
                     } else {
-                        System.out.println("Invalid command!" + lineSep);
-                        invalidCommand = true;
+                        System.out.println("No citations to list!");
                     }
-
-                    if (invalidCommand) {
-                        continue;
-                    }
-                } catch (InputMismatchException e) {
-                    scanner.nextLine(); // Infinite loop without
-                    System.out.println("Wrong input format: " + e);
+                } else {
+                    System.out.println("Invalid command!" + lineSep);
                 }
             }
         }
         if (mini.citations.size() == 0) {
-            System.out.println("No citations were added");
+            System.out.println("No citations were added!");
             return;
         }
         mini.printCitations();
-        CitationPlainTextWriter.writeToFile(mini.citations, mini.plaintTextFileName);
-        CitationBibtexWriter.writeToFile(mini.citations, mini.bibFileName);
+        mini.writeToFiles();
+    }
+    
+    /**
+     * Writes to files.
+     */
+    private void writeToFiles() {
+        CitationPlainTextWriter.writeToFile(this.citations, this.plaintTextFileName);
+        CitationBibtexWriter.writeToFile(this.citations, this.bibFileName);
     }
 
     /**
-     * Prints added citations. TODO: remove?
+     * Prints all the citations.
      */
     private void printCitations() {
         System.out.println("Citations:");
         System.out.println("-------------");
-        for (int i = 0; i < this.citations.size(); i++) {
-            System.out.println(this.citations.get(i));
+        for (Citation c : this.citations) {
+            System.out.println(c);
             System.out.println("---");
         }
+    }
+
+    /**
+     * Prints all the keys of the current citations.
+     */
+    private void printCitationKeys() {
+        System.out.println("Citation keys:");
+        for (Citation c : this.citations) {
+            System.out.println(c.getKey());
+        }
+        System.out.println("");
     }
 
     /**
@@ -123,98 +130,153 @@ public class Miniprojekti {
      * Adds a citation.
      *
      * @param scanner scanner
-     * @return true if succesful, otherwise false
      */
-    private boolean addCitation(Scanner scanner) {
-        int type = this.getType(scanner);
-        scanner.nextLine();
-        if (!(0 <= type && type <= 2)) {
-            System.out.println("Not a valid type! " + type);
-            return false;
+    private void addCitation(Scanner scanner) {
+        String type = null;
+        int typeInt = -1;
+        while (type == null || (!(0 <= typeInt && typeInt <= 2))) {
+            if (typeInt != -1) {
+                System.out.println("Not a valid type! " + type);
+            }
+            type = this.getInputType(scanner);
+            try {
+                typeInt = Integer.parseInt(type);
+            } catch (NumberFormatException e) {
+                String[] lines = e.getMessage().split("\"");
+                System.out.println("Wrong input format: " + lines[1]);
+                typeInt = -1;
+            }
         }
-        System.out.println("You gave the number: " + type);
+        System.out.println("You gave the number: " + typeInt);
 
         String key = null;
         while (key == null || key.isEmpty()) {
             if (key != null) {
                 System.out.println("Key cannot be empty!");
             }
-            key = getKey(scanner);
+            key = this.getInputKey(scanner);
+            if (isDuplicateCitationKey(key)) {
+                System.out.println("Key cannot be a duplicate: " + key);
+                key = null;
+            }
         }
         System.out.println("You gave the key: " + key + "\n");
 
         Map<Citation.DataType, String> data = null;
         Citation.EntryType entryType = Citation.EntryType.Inproceedings;
         while (data == null) {
-            if (type == 0) {
+            if (typeInt == 0) {
                 data = this.getInProceedingsData(scanner);
-            }
-            if (type == 1) {
+            } else if (typeInt == 1) {
                 data = this.getArticleData(scanner);
                 entryType = Citation.EntryType.Article;
-            }
-            if (type == 2) {
+            } else if (typeInt == 2) {
                 data = this.getBookData(scanner);
                 entryType = Citation.EntryType.Book;
             }
         }
         System.out.println("You gave the data: " + data + "\n");
 
-        // Now keeps track of IDs
         Citation cit = new Citation(this.currentId++, entryType, key, data);
         this.citations.add(cit);
         System.out.println("Added citation:\n" + cit);
-        return true;
     }
 
     /**
      * Adds a citation using doi.
      *
      * @param scanner scanner
-     * @return true if succesful, otherwise false
      */
-    private boolean addCitationDoi(Scanner scanner) {
+    private void addCitationDoi(Scanner scanner) {
         System.out.println("Input doi:");
-        String doi = scanner.next().trim();
-        scanner.nextLine();
+        String doi = scanner.nextLine().trim();
         String result = BibtexFetcher.fetchBibtex(doi);
         if (result == null) {
-            return false;
+            return;
         }
         result = BibtexFetcher.formatBibtex(result);
-        Citation cit = BibtexFetcher.getCitationFromBibtex(result, this.currentId);
-        this.currentId++;
+        Citation cit = BibtexFetcher.getCitationFromBibtex(result, this.currentId++);
+        String key = cit.getKey();
+        if (isDuplicateCitationKey(key)) {
+            System.out.println("Couldn't add citation via doi: " + doi);
+            System.out.println("Duplicate key! " + key);
+            return;
+        }
         this.citations.add(cit);
-        System.out.println("Added citation via doi: " + doi + "\n");
-        return true;
+        System.out.println("Added citation via doi:\n" + cit);
     }
     
     /**
      * Removes citation with given key.
      *
      * @param scanner scanner
-     * @return true if succesful, otherwise false
      */
-    private boolean removeCitation(Scanner scanner) {
+    private void removeCitation(Scanner scanner) {
         System.out.println("Input key of citation to be removed:");
-        String key = scanner.next().trim();
-        scanner.nextLine();
-        boolean found = false;
+        String key = scanner.nextLine().trim();
         for (int i = 0; i < this.citations.size(); i++) {
             if (this.citations.get(i).getKey().equals(key)) {
                 this.citations.remove(i);
-                found = true;
+                System.out.println("Removed citation with key: " + key + "\n");
+                return;
             }
         }
-        if (found) {
-            System.out.println("Removed citation with key: " + key + "\n");
-            return true;
-        } else { //Eclipse doesn't like this, no idea why
-            System.out.println("Couldn't find citation with key: " + key + "\n"); 
-            return false;
-        }
+        System.out.println("Couldn't find citation with key: " + key + "\n");
     }
 
+    /**
+     * Function for modifying a citation.
+     */
+    private void modifyCitation() {
+        // TODO:
+        return;
+    }
+
+    /**
+     * Checks wheter an existing citation already has the same key.
+     *
+     * @param newKey the new key
+     * @return true if duplicate exists, otherwise false
+     */
+    private boolean isDuplicateCitationKey(String newKey) {
+        for (Citation c : this.citations) {
+            if (c.getKey().equals(newKey)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Constructs data for the type inproceedings.
+     *
+     * @param scanner scanner
+     * @return Map of datatype -> string
+     */
+    private Map<Citation.DataType, String> getInProceedingsData(Scanner scanner) {
+        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
+
+        System.out.println("Please input author:");
+        map.put(Citation.DataType.Author, scanner.nextLine().trim());
+
+        System.out.println("Please input title:");
+        map.put(Citation.DataType.Title, scanner.nextLine().trim());
+
+        System.out.println("Please input year:");
+        map.put(Citation.DataType.Year, scanner.nextLine().trim());
+
+        System.out.println("Please input book title:");
+        map.put(Citation.DataType.BookTitle, scanner.nextLine().trim());
+
+        return map;
+    }
+
+    /**
+     * Constructs data for the type article.
+     *
+     * @param scanner scanner
+     * @return Map of datatype -> string
+     */
     private Map<Citation.DataType, String> getArticleData(Scanner scanner) {
         Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
 
@@ -239,6 +301,12 @@ public class Miniprojekti {
         return map;
     }
 
+    /**
+     * Constructs data for the type book.
+     *
+     * @param scanner scanner
+     * @return Map of datatype -> string
+     */
     private Map<Citation.DataType, String> getBookData(Scanner scanner) {
         Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
 
@@ -257,37 +325,18 @@ public class Miniprojekti {
         return map;
     }
 
-    private Map<Citation.DataType, String> getInProceedingsData(Scanner scanner) {
-        Map<Citation.DataType, String> map = new HashMap<Citation.DataType, String>();
-
-        System.out.println("Please input author:");
-        map.put(Citation.DataType.Author, scanner.nextLine().trim());
-
-        System.out.println("Please input title:");
-        map.put(Citation.DataType.Title, scanner.nextLine().trim());
-
-        System.out.println("Please input year:");
-        map.put(Citation.DataType.Year, scanner.nextLine().trim());
-
-        System.out.println("Please input book title:");
-        map.put(Citation.DataType.BookTitle, scanner.nextLine().trim());
-
-        return map;
-    }
-
     /**
      * Handles the user input for the citation type.
      *
      * @param scanner Scanner object
-     * @return integer matching Citation.EntryType
-     * @throws InputMismatchException if the input is not an integer
+     * @return trimmed string
      */
-    public int getType(Scanner scanner) {
+    public String getInputType(Scanner scanner) {
         System.out.println("Give a type:");
         System.out.println("0: " + Citation.EntryType.Inproceedings);
         System.out.println("1: " + Citation.EntryType.Article);
         System.out.println("2: " + Citation.EntryType.Book);
-        return scanner.nextInt();
+        return scanner.nextLine().trim();
     }
 
     /**
@@ -296,35 +345,33 @@ public class Miniprojekti {
      * @param scanner Scanner object
      * @return trimmed string
      */
-    public String getKey(Scanner scanner) {
+    public String getInputKey(Scanner scanner) {
         System.out.println("Give a key for the citation:");
         return scanner.nextLine().trim();
     }
-    
+
     /**
-     * Reads bibtex entries from entries.bib and adds them to citations list
+     * Reads bibtex entries from entries.bib and adds them to citations list.
      */
     public void getCitationsFromBibtexFile() {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader; 
         try {
-            reader = new BufferedReader(new FileReader("entries.bib"));
+            reader = new BufferedReader(new FileReader(this.bibFileName));
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("}")) {
                         sb.append(line);
-                        Citation cit = BibtexFetcher.getCitationFromBibtex(sb.toString(), currentId);
-                        currentId++;
+                        Citation cit = BibtexFetcher.getCitationFromBibtex(
+                            sb.toString(), currentId++);
                         this.citations.add(cit);
                         //System.out.print(sb.toString());
                         sb.setLength(0);
-                    }
-                    else {
+                    } else {
                         sb.append(line + System.getProperty("line.separator"));
                     }
                 }
-                
             } catch (IOException e) {
                 e.printStackTrace();
             }

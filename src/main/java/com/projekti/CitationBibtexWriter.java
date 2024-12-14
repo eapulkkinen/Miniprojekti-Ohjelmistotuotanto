@@ -1,8 +1,7 @@
 package com.projekti;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -11,23 +10,18 @@ import java.util.List;
 public class CitationBibtexWriter {
 
     /**
-     * Writes given citations into a file.
+     * Writes given citations into a file to a bibtex format.
      *
-     * @param citations list of citations to write to a file
-     * @param filename name for the file where citations are written
+     * @param citations list of the citations
+     * @param filename  name for the file
      */
-    public static void writeToFile(
-        List<Citation> citations, String filename) {
-        try (PrintWriter writer = new PrintWriter(filename, "UTF-8")) {
+    public static void writeToFile(List<Citation> citations, String filename) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
             for (Citation c : citations) {
                 writer.println(c.toBibtexEntry());
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw e;
         }
     }
 }

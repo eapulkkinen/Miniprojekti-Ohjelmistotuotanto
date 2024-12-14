@@ -48,43 +48,56 @@ public class MiniprojektiTest {
         String expected = mainStart
                 + "Quitting!" + lineSep
                 + lineSep
-                + "No citations were added" + lineSep;
+                + "No citations were added!" + lineSep;
         assertEquals(expected, actual);
     }
 
     @Test
     public void testMainInvalidTypeInt() {
         String testNumber = "5";
-        String userInput = "add" + lineSep + testNumber + lineSep + "q" + lineSep;
+        String userInput = "add" + lineSep + testNumber + lineSep + "2" 
+                + lineSep + "M00"
+                + lineSep + "Matti Meikäläinen"
+                + lineSep + "Koodauksen perusteet"
+                + lineSep + "2000"
+                + lineSep + "Otava"
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(args);
         String actual = os.toString();
-        String expected = mainStart
+        boolean correct = true;
+        String expectedEnding = mainStart
                 + addStart
-                + "Not a valid type! " + testNumber + lineSep
-                + mainStart
-                + "Quitting!" + lineSep
-                + lineSep
-                + "No citations were added" + lineSep;
-        assertEquals(expected, actual);
+                + "Not a valid type! " + testNumber + lineSep;
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
     }
 
     @Test
     public void testMainInvalidTypeNonInt() {
         String testInput = "a";
-        String userInput = "add" + lineSep + testInput + lineSep + "q" + lineSep;
+        String userInput = "add" + lineSep + testInput + lineSep + "2"
+                + lineSep + "M00"
+                + lineSep + "Matti Meikäläinen"
+                + lineSep + "Koodauksen perusteet"
+                + lineSep + "2000"
+                + lineSep + "Otava"
+                + lineSep + "q" + lineSep;
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
         Miniprojekti.main(args);
         String actual = os.toString();
-        String expected = mainStart
+        boolean correct = true;
+        String expectedEnding = mainStart
                 + addStart
-                + "Wrong input format: java.util.InputMismatchException" + lineSep
-                + mainStart
-                + "Quitting!" + lineSep + lineSep
-                + "No citations were added" + lineSep;
-        assertEquals(expected, actual);
+                + "Wrong input format: " + testInput + lineSep;
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
     }
 
     @Test
@@ -264,7 +277,27 @@ public class MiniprojektiTest {
         String expectedEnding = "Error while fetching. Response code: 404" + lineSep
                 + mainStart
                 + "Quitting!" + lineSep + lineSep
-                + "No citations were added" + lineSep;
+                + "No citations were added!" + lineSep;
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainDuplicateDoiCitationKey() {
+        String doi = "10.30673/sja.119791";
+        String key = "Kuismin_2022";
+        String userInput = "add doi" + lineSep + doi
+                + lineSep + "add doi" + lineSep + doi 
+                + lineSep + "q" + lineSep;
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Couldn't add citation via doi: " + doi
+                + lineSep + "Duplicate key! " + key + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
@@ -313,7 +346,7 @@ public class MiniprojektiTest {
         String expectedEnding = "Invalid command!" + lineSep + lineSep
                 + mainStart
                 + "Quitting!" + lineSep + lineSep
-                + "No citations were added" + lineSep;
+                + "No citations were added!" + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
@@ -324,7 +357,7 @@ public class MiniprojektiTest {
     public void testMainEmptyKey() {
         String userInput = "add" + lineSep + "1"
                 + lineSep + ""
-                + lineSep + "testArticle"
+                + lineSep + "articleAI"
                 + lineSep + "Maija Meikäläinen"
                 + lineSep + "AI ja koodaamisen tulevaisuus"
                 + lineSep + "JYX"
@@ -338,6 +371,82 @@ public class MiniprojektiTest {
         String actual = os.toString();
         boolean correct = true;
         if (!actual.contains("Key cannot be empty!")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainDuplicateKey() {
+        String duplicateKey = "M24";
+        String userInput = "add" + lineSep + "1"
+                + lineSep + duplicateKey
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep
+                + "add"
+                + lineSep + "1"
+                + lineSep + duplicateKey
+                + lineSep + "M24b" // New key
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep + "q" + lineSep;
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        if (!actual.contains("Key cannot be a duplicate: " + duplicateKey)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainListCitationsNoCitations() {
+        String userInput =  "list" + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        if (!actual.contains("No citations to list!")) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainListCitations() {
+        String userInput = "add" + lineSep + "1"
+                + lineSep + "M24"
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep + "list"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Citation keys:" + lineSep
+            + "M24";
+        if (!actual.contains(expectedEnding)) {
             correct = false;
         }
         assertEquals(true, correct);

@@ -1,10 +1,8 @@
 id: 0
-Type: article
-Key: Kuismin_2022
-Publisher: Sananjalka
-Title: Palava rakkaus ja öljy pumpulissa: Lemmenviestit, huumori ja kirjallistuminen suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun
-Volume: 64
-Year: 2022
-Author: Kuismin, Anna
-Journal: Sananjalka
+Type: book
+Key: M00
+Author: Matti Meikäläinen
+Title: Koodauksen perusteet
+Year: 2000
+Publisher: Otava
 

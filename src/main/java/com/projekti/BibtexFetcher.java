@@ -191,7 +191,7 @@ public class BibtexFetcher {
                 map.put(Citation.DataType.BookTitle, value);
             }
         }
-        
+
         Citation cit = new Citation(id, entryType, key, map);
         return cit;
     }

@@ -39,39 +39,36 @@ public class Citation {
         Publisher
     }
 
-
     /**
-     * Builder for citations.
+     * Constructor for a citation.
      *
      * @param id unique to a single quote is not the same as a key
-     * @param type 3 type selection
+     * @param type one of the EntryTypes
      * @param key key of the citation to be searched
      * @param data contents
      */
     public Citation(int id, EntryType type, String key, Map<DataType, String> data) {
         this.id = id;
-        this.type = type; // either Inproceedings, article or book
+        this.type = type;
         this.key = key;
-        this.data = data; // I think this should not be here (Should be author)
-        //this.title = title; // should be added
-        //this.year = year; // should be added
+        this.data = data;
     }
 
-
+    /**
+     * Returns the citation in decent string format.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id: " + id + System.getProperty("line.separator")
             + "Type: " + type.name().toLowerCase() + System.getProperty("line.separator")
             + "Key: " + key + System.getProperty("line.separator")
-        //+ "Data: \n" + data);
         );
         for (Entry<DataType, String> v : data.entrySet()) {
             sb.append(v.getKey() + ": " + v.getValue() + System.getProperty("line.separator"));
         }
         return sb.toString();
     }
-
 
     /**
      * Creates a BibTeX string out of the citation.
@@ -87,7 +84,7 @@ public class Citation {
         sb.append("}");
         return sb.toString();
     }
-    
+
     /**
      * Returns the key of the citation.
      *
@@ -95,5 +92,14 @@ public class Citation {
      */
     public String getKey() {
         return this.key;
+    }
+
+    /**
+     * Returns the data of the citation.
+     *
+     * @return the data of the citation
+     */
+    public Map<DataType, String> getData() {
+        return this.data;
     }
 }
