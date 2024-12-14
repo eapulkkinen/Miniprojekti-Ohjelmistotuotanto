@@ -6,20 +6,20 @@ import java.util.Map.Entry;
 /**
  * Class for Citations.
  *
- * @author Juuso
- * @version 9.12.2024
+ * @author developers
+ * @version 14.12.2024
  *
  */
 public class Citation {
     private final int id;
-    private EntryType type;
-    private String key;
-    private Map<DataType, String> data;
+    private final EntryType type;
+    private final String key;
+    private final Map<DataType, String> data;
 
     /**
      * All the different citation types.
      */
-    protected enum EntryType {
+    enum EntryType {
         Inproceedings,
         Article,
         Book
@@ -28,7 +28,7 @@ public class Citation {
     /**
      * All the data types for a citation.
      */
-    protected enum DataType {
+    enum DataType {
         Author,
         Title,
         Year,
@@ -95,11 +95,21 @@ public class Citation {
     }
 
     /**
-     * Returns the data of the citation.
+     * Returns the data map.
      *
-     * @return the data of the citation
+     * @return map of the data
      */
     public Map<DataType, String> getData() {
         return this.data;
+    }
+
+    /**
+     * Updates the value of a data type in the citation.
+     *
+     * @param dataType data type
+     * @param value new value
+     */
+    public void setDataValue(DataType dataType, String value) {
+        data.put(dataType, value);
     }
 }

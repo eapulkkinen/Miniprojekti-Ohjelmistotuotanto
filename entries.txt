@@ -3,6 +3,6 @@ Type: book
 Key: M00
 Author: Matti Meikäläinen
 Title: Koodauksen perusteet
-Year: 2000
 Publisher: Otava
+Year: 2000
 

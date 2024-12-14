@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Main class for the application.
  *
  * @author developers
- * @version 11.12.2024
+ * @version 14.12.2024
  *
  */
 public class Miniprojekti {
@@ -34,7 +34,7 @@ public class Miniprojekti {
      */
     public static void main(String[] args) {
         String bibtexFile;
-        if (args.length == 0) { 
+        if (args.length == 0) {
             bibtexFile = "entries.bib";
         } else {
             bibtexFile = args[0];
@@ -44,7 +44,7 @@ public class Miniprojekti {
         if (new File(bibtexFile).isFile()) {
             mini.getCitationsFromBibtexFile();
         }
-        
+
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 String lineSep = System.getProperty("line.separator");
@@ -56,6 +56,8 @@ public class Miniprojekti {
                     mini.addCitation(scanner);
                 } else if (command.matches("add doi")) {
                     mini.addCitationDoi(scanner);
+                } else if (command.matches("modify")) {
+                    mini.modifyCitation(scanner);
                 } else if (command.matches("remove")) {
                     mini.removeCitation(scanner);
                 } else if (command.matches("list")) {
@@ -78,7 +80,7 @@ public class Miniprojekti {
         mini.printCitations();
         mini.writeToFiles();
     }
-    
+
     /**
      * Writes to files.
      */
@@ -121,6 +123,7 @@ public class Miniprojekti {
         System.out.println("q -> quit");
         System.out.println("add -> add a citation");
         System.out.println("add doi -> add a citation using doi");
+        System.out.println("modify -> modify a citation");
         System.out.println("remove -> remove a citation");
         System.out.println("list -> list all citations");
         return scanner.nextLine().trim().toLowerCase();
@@ -205,7 +208,63 @@ public class Miniprojekti {
         this.citations.add(cit);
         System.out.println("Added citation via doi:\n" + cit);
     }
-    
+
+    /**
+     * Function for modifying a citation.
+     */
+    private void modifyCitation(Scanner scanner) {
+        System.out.println("Input the key of the citation:");
+        String key = scanner.nextLine().trim();
+        Citation cit = findCitationByKey(key);
+        if (cit == null) {
+            System.out.println("Couldn't find citation with key: " + key + "\n");
+            return;
+        }
+
+        System.out.println("Modifying citation with key: " + key);
+        Citation.DataType data = promptForDataTypeField(scanner, cit);
+
+        System.out.println("Input new value:");
+        String value = scanner.nextLine().trim();
+        cit.setDataValue(data, value);
+        System.out.println("Updated citation!" + System.getProperty("line.separator"));
+    }
+
+    /**
+     * Searches for a citation by key.
+     *
+     * @param key key
+     * @return Citation if found, otherwise null
+     */
+    private Citation findCitationByKey(String key) {
+        for (Citation c : this.citations) {
+            if (c.getKey().matches(key)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Promps for the field to be modified.
+     *
+     * @param scanner scanner
+     * @param cit citation
+     * @return field to be modifired
+     */
+    private Citation.DataType promptForDataTypeField(Scanner scanner, Citation cit) {
+        while (true) {
+            System.out.println("Input the field to be modified:");
+            String field = scanner.nextLine().trim();
+            for (Citation.DataType validDataType : cit.getData().keySet()) {
+                if (validDataType.name().toLowerCase().matches(field)) {
+                    return validDataType;
+                }
+            }
+            System.out.println("Invalid field: " + field);
+        }
+    }
+
     /**
      * Removes citation with given key.
      *
@@ -214,22 +273,13 @@ public class Miniprojekti {
     private void removeCitation(Scanner scanner) {
         System.out.println("Input key of citation to be removed:");
         String key = scanner.nextLine().trim();
-        for (int i = 0; i < this.citations.size(); i++) {
-            if (this.citations.get(i).getKey().equals(key)) {
-                this.citations.remove(i);
-                System.out.println("Removed citation with key: " + key + "\n");
-                return;
-            }
+        Citation cit = findCitationByKey(key);
+        if (cit != null) {
+            this.citations.remove(cit);
+            System.out.println("Removed citation with key: " + key + "\n");
+            return;
         }
         System.out.println("Couldn't find citation with key: " + key + "\n");
-    }
-
-    /**
-     * Function for modifying a citation.
-     */
-    private void modifyCitation() {
-        // TODO:
-        return;
     }
 
     /**

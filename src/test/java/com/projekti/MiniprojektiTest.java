@@ -17,6 +17,7 @@ public class MiniprojektiTest {
             + lineSep + "q -> quit"
             + lineSep + "add -> add a citation"
             + lineSep + "add doi -> add a citation using doi"
+            + lineSep + "modify -> modify a citation"
             + lineSep + "remove -> remove a citation"
             + lineSep + "list -> list all citations"
             + lineSep;
@@ -446,6 +447,74 @@ public class MiniprojektiTest {
         boolean correct = true;
         String expectedEnding = "Citation keys:" + lineSep
             + "M24";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainModifyCitationInvalidKey() {
+        String invalidKey = "M12";
+        String userInput = "add" + lineSep + "1"
+                + lineSep + "M24"
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep
+                + "modify"
+                + lineSep + invalidKey
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        if (!actual.contains("Input the key of the citation:" + lineSep
+                + "Couldn't find citation with key: " + invalidKey)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+
+    @Test
+    public void testMainModifyCitationInvalidAndValidField() {
+        String validKey = "M24";
+        String validField = "author";
+        String invalidField = "autor1";
+        String validValue = "Matti Muukalainen";
+        String userInput = "add" + lineSep + "1"
+                + lineSep + validKey
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep
+                + "modify"
+                + lineSep + validKey
+                + lineSep + invalidField
+                + lineSep + validField
+                + lineSep + validValue
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Input the key of the citation:" + lineSep
+                + "Modifying citation with key: " + validKey + lineSep
+                + "Input the field to be modified:" + lineSep
+                + "Invalid field: " + invalidField + lineSep
+                + "Input the field to be modified:" + lineSep
+                + "Input new value:" + lineSep
+                + "Updated citation!" + lineSep + lineSep;
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
