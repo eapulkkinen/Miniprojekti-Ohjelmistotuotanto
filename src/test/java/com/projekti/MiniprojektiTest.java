@@ -516,9 +516,8 @@ public class MiniprojektiTest {
         String userInput = "add" 
                 + lineSep + "2"
                 + lineSep + "U689"
-                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "Pena Kirjoittaja"
-                + lineSep + "U684"
+                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
                 + lineSep + "list"
                 + lineSep + "2"
@@ -540,10 +539,10 @@ public class MiniprojektiTest {
         String userInput = "add" 
                 + lineSep + "2"
                 + lineSep + "U689"
-                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "Pena Kirjoittaja"
-                + lineSep + "U684"
+                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep
                 + lineSep + "list"
                 + lineSep + "9"
                 + lineSep + "2"
@@ -565,10 +564,10 @@ public class MiniprojektiTest {
         String userInput = "add" 
                 + lineSep + "2"
                 + lineSep + "U689"
-                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "Pena Kirjoittaja"
-                + lineSep + "U684"
+                + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep
                 + lineSep + "list"
                 + lineSep + "moka"
                 + lineSep + "2"
@@ -579,6 +578,103 @@ public class MiniprojektiTest {
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Wrong input format: moka";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListAttributeNotFound() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "2024"
+                + lineSep
+                + lineSep + "list"
+                + lineSep + "3"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Nothing found with the search term Maija Meikäläinen";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListAttributeIdFound() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "3"
+                + lineSep + "0"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "id: 0";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListAttributeKeyFound() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "3"
+                + lineSep + "0"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Key: U689";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListAttributeFound() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "3"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Author: Pena Kirjoittaja";
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
