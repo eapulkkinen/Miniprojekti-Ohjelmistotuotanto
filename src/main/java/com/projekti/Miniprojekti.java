@@ -317,6 +317,7 @@ public class Miniprojekti {
     private void listCitations(Scanner scanner, Miniprojekti mini) {
         String type = null;
         int typeInt = -1;
+        boolean printed = false;
         while (type == null || (!(0 <= typeInt && typeInt <= 2))) {
             if (typeInt != -1) {
                 System.out.println("Not a valid type! " + type);
@@ -326,6 +327,7 @@ public class Miniprojekti {
                 System.out.println("Listing all citations\n");
                 mini.printCitationKeys();
                 mini.printCitations();
+                printed = true;
                 break;
             }
             try {
@@ -337,7 +339,9 @@ public class Miniprojekti {
             }
         }
         
-        printByType(typeInt);
+        if (!printed) {
+            printByType(typeInt);
+        }
     }
 
     /**

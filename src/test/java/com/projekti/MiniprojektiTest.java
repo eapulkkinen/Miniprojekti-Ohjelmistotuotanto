@@ -460,7 +460,131 @@ public class MiniprojektiTest {
         }
         assertEquals(true, correct);
     }
+    
+    @Test
+    public void testMainListAllInproceedings() {
+        String userInput = "add" 
+                + lineSep + "0"
+                + lineSep + "P30"
+                + lineSep + "inproAI"
+                + lineSep + "Matti Meikänen"
+                + lineSep + "2024"
+                + lineSep + "AI Lehti"
+                + lineSep + "list"
+                + lineSep + "0"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Key: P30";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
 
+    @Test
+    public void testMainListAllArticles() {
+        String userInput = "add" + lineSep + "1"
+                + lineSep + "M24"
+                + lineSep + "articleAI"
+                + lineSep + "Maija Meikäläinen"
+                + lineSep + "AI ja koodaamisen tulevaisuus"
+                + lineSep + "JYX"
+                + lineSep + "2024"
+                + lineSep + "12"
+                + lineSep + "15-23"
+                + lineSep + "list"
+                + lineSep + "1"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Key: M24";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListAllBooks() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "U684"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "2"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Key: U689";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListInvalidType() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "U684"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "3"
+                + lineSep + "2"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Not a valid type! 3";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
+    @Test
+    public void testMainListInvalidInput() {
+        String userInput = "add" 
+                + lineSep + "2"
+                + lineSep + "U689"
+                + lineSep + "Minä kirjoitin kirjan"
+                + lineSep + "Pena Kirjoittaja"
+                + lineSep + "U684"
+                + lineSep + "2024"
+                + lineSep + "list"
+                + lineSep + "moka"
+                + lineSep + "2"
+                + lineSep + "q";
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        Miniprojekti.main(args);
+        String actual = os.toString();
+        boolean correct = true;
+        String expectedEnding = "Wrong input format: moka";
+        if (!actual.contains(expectedEnding)) {
+            correct = false;
+        }
+        assertEquals(true, correct);
+    }
+    
     @Test
     public void testMainModifyCitationInvalidKey() {
         String invalidKey = "M12";
