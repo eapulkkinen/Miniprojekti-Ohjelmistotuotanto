@@ -12,3 +12,6 @@ Definition of Done
 - Koodin ylläpidettävyyden tulee olla mahdollisimman hyvä ja skaalautuva.
 
 [Retrospektiivi](/retro.md)
+
+## LICENSE
+This project is licensed under the terms of the [LICENSE](https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/blob/main/LICENSE).
