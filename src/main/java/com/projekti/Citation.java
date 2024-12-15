@@ -95,6 +95,15 @@ public class Citation {
     }
 
     /**
+     * Returns the type of the citation.
+     *
+     * @return the type of the citation
+     */
+    public EntryType getType() {
+        return this.type;
+    }
+    
+    /**
      * Returns the data map.
      *
      * @return map of the data

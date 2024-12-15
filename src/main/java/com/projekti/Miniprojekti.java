@@ -62,9 +62,7 @@ public class Miniprojekti {
                     mini.removeCitation(scanner);
                 } else if (command.matches("list")) {
                     if (mini.citations.size() != 0) {
-                        System.out.println("");
-                        mini.printCitationKeys();
-                        mini.printCitations();
+                        mini.listCitations(scanner, mini);
                     } else {
                         System.out.println("No citations to list!");
                     }
@@ -111,6 +109,33 @@ public class Miniprojekti {
         }
         System.out.println("");
     }
+    
+    /**
+     * Prints each citation of wanted type.
+     *
+     * @param typeInt type to be printed
+     */
+    private void printByType(int typeInt) {
+        String type = "";
+        switch (typeInt) {
+            case 0:
+                type = "Inproceedings";
+                break;
+            case 1:
+                type = "Article";
+                break;
+            default:
+                type = "Book";
+        }
+        System.out.println("Listing each " + type.toLowerCase());
+        System.out.println("-------------");
+        for (Citation c : this.citations) {
+            if (c.getType().toString().matches(type)) {
+                System.out.println(c);
+                System.out.println("---");
+            }
+        }
+    }
 
     /**
      * Reads the given command and returns it.
@@ -125,7 +150,7 @@ public class Miniprojekti {
         System.out.println("add doi -> add a citation using doi");
         System.out.println("modify -> modify a citation");
         System.out.println("remove -> remove a citation");
-        System.out.println("list -> list all citations");
+        System.out.println("list -> list citations by type or list all citations");
         return scanner.nextLine().trim().toLowerCase();
     }
 
@@ -246,11 +271,11 @@ public class Miniprojekti {
     }
 
     /**
-     * Promps for the field to be modified.
+     * Prompts for the field to be modified.
      *
      * @param scanner scanner
      * @param cit citation
-     * @return field to be modifired
+     * @return field to be modified
      */
     private Citation.DataType promptForDataTypeField(Scanner scanner, Citation cit) {
         while (true) {
@@ -281,9 +306,42 @@ public class Miniprojekti {
         }
         System.out.println("Couldn't find citation with key: " + key + "\n");
     }
+    
+    /**
+     * Prints citations based on user input, printing either
+     * all citations or citations by type. 
+     *
+     * @param scanner scanner
+     * @param mini mini
+     */
+    private void listCitations(Scanner scanner, Miniprojekti mini) {
+        String type = null;
+        int typeInt = -1;
+        while (type == null || (!(0 <= typeInt && typeInt <= 2))) {
+            if (typeInt != -1) {
+                System.out.println("Not a valid type! " + type);
+            }
+            type = this.getListType(scanner);
+            if (type.toLowerCase().matches("all")) {
+                System.out.println("Listing all citations\n");
+                mini.printCitationKeys();
+                mini.printCitations();
+                break;
+            }
+            try {
+                typeInt = Integer.parseInt(type);
+            } catch (NumberFormatException e) {
+                String[] lines = e.getMessage().split("\"");
+                System.out.println("Wrong input format: " + lines[1]);
+                typeInt = -1;
+            }
+        }
+        
+        printByType(typeInt);
+    }
 
     /**
-     * Checks wheter an existing citation already has the same key.
+     * Checks whether an existing citation already has the same key.
      *
      * @param newKey the new key
      * @return true if duplicate exists, otherwise false
@@ -389,6 +447,21 @@ public class Miniprojekti {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Handles the user input for the citation type for listing purposes.
+     *
+     * @param scanner Scanner object
+     * @return trimmed string
+     */
+    public String getListType(Scanner scanner) {
+        System.out.println("Give a type:");
+        System.out.println("0: " + Citation.EntryType.Inproceedings);
+        System.out.println("1: " + Citation.EntryType.Article);
+        System.out.println("2: " + Citation.EntryType.Book);
+        System.out.println("all: List all citations");
+        return scanner.nextLine().trim();
+    }
+    
     /**
      * Handles the user input for the citation key.
      *

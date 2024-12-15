@@ -19,7 +19,7 @@ public class MiniprojektiTest {
             + lineSep + "add doi -> add a citation using doi"
             + lineSep + "modify -> modify a citation"
             + lineSep + "remove -> remove a citation"
-            + lineSep + "list -> list all citations"
+            + lineSep + "list -> list citations by type or list all citations"
             + lineSep;
 
     String addStart = "Give a type:" + lineSep
@@ -428,7 +428,7 @@ public class MiniprojektiTest {
     }
 
     @Test
-    public void testMainListCitations() {
+    public void testMainListAllCitations() {
         String userInput = "add" + lineSep + "1"
                 + lineSep + "M24"
                 + lineSep + "articleAI"
@@ -438,7 +438,15 @@ public class MiniprojektiTest {
                 + lineSep + "2024"
                 + lineSep + "12"
                 + lineSep + "15-23"
+                + lineSep + "add" 
+                + lineSep + "0"
+                + lineSep + "P30"
+                + lineSep + "inproAI"
+                + lineSep + "Matti Meikänen"
+                + lineSep + "2024"
+                + lineSep + "AI Lehti"
                 + lineSep + "list"
+                + lineSep + "all"
                 + lineSep + "q";
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
@@ -446,7 +454,7 @@ public class MiniprojektiTest {
         String actual = os.toString();
         boolean correct = true;
         String expectedEnding = "Citation keys:" + lineSep
-            + "M24";
+            + "M24" + lineSep + "P30";
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }
