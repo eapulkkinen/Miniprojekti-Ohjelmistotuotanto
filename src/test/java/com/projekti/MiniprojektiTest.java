@@ -519,6 +519,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "2"
                 + lineSep + "q";
@@ -542,7 +543,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
-                + lineSep
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "9"
                 + lineSep + "2"
@@ -567,7 +568,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
-                + lineSep
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "moka"
                 + lineSep + "2"
@@ -592,7 +593,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
-                + lineSep
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "3"
                 + lineSep + "Maija Meikäläinen"
@@ -617,6 +618,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep + "Otava"               
                 + lineSep + "list"
                 + lineSep + "3"
                 + lineSep + "0"
@@ -641,9 +643,10 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "3"
-                + lineSep + "0"
+                + lineSep + "U689"
                 + lineSep + "q";
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
@@ -665,6 +668,7 @@ public class MiniprojektiTest {
                 + lineSep + "Pena Kirjoittaja"
                 + lineSep + "Minä kirjoitin kirjan"
                 + lineSep + "2024"
+                + lineSep + "Otava"
                 + lineSep + "list"
                 + lineSep + "3"
                 + lineSep + "Pena Kirjoittaja"
