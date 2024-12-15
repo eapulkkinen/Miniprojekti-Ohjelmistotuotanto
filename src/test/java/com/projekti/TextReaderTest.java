@@ -28,16 +28,19 @@ class TextReaderTest {
     }
 
     @Test
-    void testReadFromTextFile_FileNotFound() {
-        java.io.ByteArrayOutputStream errContent = new java.io.ByteArrayOutputStream();
-        System.setErr(new java.io.PrintStream(errContent));
-        String nonExistentFile = "non_existent_file.txt";
-        assertThrows(FileNotFoundException.class, () -> {
-            TextReader.readFromTextFile(nonExistentFile);
-        });
-        assertTrue(errContent.toString().contains("File not found: " + nonExistentFile));
-        System.setErr(System.err);
-    }
+void testReadFromTextFile_FileNotFound() {
+    java.io.ByteArrayOutputStream errContent = new java.io.ByteArrayOutputStream();
+    System.setErr(new java.io.PrintStream(errContent));
+    String nonExistentFile = "non_existent_file.txt";
+    TextReader.readFromTextFile(nonExistentFile);
+    String expectedErrorMessage = "File not found: " + nonExistentFile;
+    assertTrue(errContent.toString().contains(expectedErrorMessage), 
+        "Expected error message not found in System.err");
+
+   
+    System.setErr(System.err);
+}
+
 
     @Test
     void testReadFromTextFile_GenericException() {
