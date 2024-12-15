@@ -136,6 +136,43 @@ public class Miniprojekti {
             }
         }
     }
+    
+    /**
+     * Searches and prints citations based on user input.
+     *
+     * @param scanner scanner
+     */
+    public void printByAttribute(Scanner scanner) {
+        System.out.println("Give a term to search by");
+        String searchTerm = scanner.nextLine().trim();
+        System.out.println("Searching for " + searchTerm);
+        System.out.println("-------------");
+
+        boolean printed = false;
+        for (Citation c : this.citations) {
+            if (c.getKey().matches(searchTerm)) {
+                System.out.println(c);
+                System.out.println("---");
+                printed = true;
+            }
+            if (String.valueOf(c.getId()).matches(searchTerm)) {
+                System.out.println(c);
+                System.out.println("---");
+                printed = true;
+            }
+            for (String dataType : c.getData().values()) {
+                if (dataType.toString().matches(searchTerm)) {
+                    System.out.println(c);
+                    System.out.println("---");
+                    printed = true;
+                }
+            }
+        }
+        if (!printed) {
+            System.out.println("Nothing found with the search term " + searchTerm);
+            System.out.println("-------------");
+        }
+    }
 
     /**
      * Reads the given command and returns it.
@@ -150,7 +187,7 @@ public class Miniprojekti {
         System.out.println("add doi -> add a citation using doi");
         System.out.println("modify -> modify a citation");
         System.out.println("remove -> remove a citation");
-        System.out.println("list -> list citations by type or list all citations");
+        System.out.println("list -> list citations");
         return scanner.nextLine().trim().toLowerCase();
     }
 
@@ -318,7 +355,7 @@ public class Miniprojekti {
         String type = null;
         int typeInt = -1;
         boolean printed = false;
-        while (type == null || (!(0 <= typeInt && typeInt <= 2))) {
+        while (type == null || (!(0 <= typeInt && typeInt <= 3))) {
             if (typeInt != -1) {
                 System.out.println("Not a valid type! " + type);
             }
@@ -338,7 +375,10 @@ public class Miniprojekti {
                 typeInt = -1;
             }
         }
-        
+        if (typeInt == 3) {
+            printByAttribute(scanner);
+            printed = true;
+        }
         if (!printed) {
             printByType(typeInt);
         }
@@ -462,6 +502,7 @@ public class Miniprojekti {
         System.out.println("0: " + Citation.EntryType.Inproceedings);
         System.out.println("1: " + Citation.EntryType.Article);
         System.out.println("2: " + Citation.EntryType.Book);
+        System.out.println("3: Search by attribute");
         System.out.println("all: List all citations");
         return scanner.nextLine().trim();
     }

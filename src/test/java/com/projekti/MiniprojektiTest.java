@@ -19,7 +19,7 @@ public class MiniprojektiTest {
             + lineSep + "add doi -> add a citation using doi"
             + lineSep + "modify -> modify a citation"
             + lineSep + "remove -> remove a citation"
-            + lineSep + "list -> list citations by type or list all citations"
+            + lineSep + "list -> list citations"
             + lineSep;
 
     String addStart = "Give a type:" + lineSep
@@ -545,7 +545,7 @@ public class MiniprojektiTest {
                 + lineSep + "U684"
                 + lineSep + "2024"
                 + lineSep + "list"
-                + lineSep + "3"
+                + lineSep + "9"
                 + lineSep + "2"
                 + lineSep + "q";
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
@@ -553,7 +553,7 @@ public class MiniprojektiTest {
         Miniprojekti.main(args);
         String actual = os.toString();
         boolean correct = true;
-        String expectedEnding = "Not a valid type! 3";
+        String expectedEnding = "Not a valid type! 9";
         if (!actual.contains(expectedEnding)) {
             correct = false;
         }

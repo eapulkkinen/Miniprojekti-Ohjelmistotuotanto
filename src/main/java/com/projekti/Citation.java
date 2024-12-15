@@ -86,6 +86,15 @@ public class Citation {
     }
 
     /**
+     * Returns the id of the citation.
+     *
+     * @return the id of the citation
+     */
+    public int getId() {
+        return this.id;
+    }
+    
+    /**
      * Returns the key of the citation.
      *
      * @return the key of the citation
