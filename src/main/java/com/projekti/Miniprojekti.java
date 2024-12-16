@@ -24,7 +24,7 @@ public class Miniprojekti {
 
     // A list for manually added citations
     private final List<Citation> citations = new ArrayList<Citation>();
-    private int currentId = 0; // TODO: most likely will be removed, no need for id
+    private int currentId = 0;
 
     /**
      * Starts the program and reads user input. Constructs citations based on input.
