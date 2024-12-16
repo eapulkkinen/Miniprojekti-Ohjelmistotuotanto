@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for CitationBibtexWriter class.
+ * Test class for CitationBibtexWriter.
  */
 public class CitationBibtexWriterTest {
 

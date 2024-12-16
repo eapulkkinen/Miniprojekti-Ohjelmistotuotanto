@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for CitationPlainTextWriter class.
+ * Test class for CitationPlainTextWriter.
  */
 public class CitationPlainTextWriterTest {
 
