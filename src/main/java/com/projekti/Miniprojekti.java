@@ -42,7 +42,7 @@ public class Miniprojekti {
 
         Miniprojekti mini = new Miniprojekti();
         if (new File(bibtexFile).isFile()) {
-            mini.getCitationsFromBibtexFile();
+            mini.getCitationsFromBibtexFile(bibtexFile);
         }
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -520,12 +520,13 @@ public class Miniprojekti {
 
     /**
      * Reads bibtex entries from entries.bib and adds them to citations list.
+     * @param bibtexFile Name of file to read
      */
-    public void getCitationsFromBibtexFile() {
+    public void getCitationsFromBibtexFile(String bibtexFile) {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader; 
         try {
-            reader = new BufferedReader(new FileReader(this.bibFileName));
+            reader = new BufferedReader(new FileReader(bibtexFile));
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -551,5 +552,9 @@ public class Miniprojekti {
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }
+    }
+    
+    public Citation getCitation(int i) {
+        return this.citations.get(i);
     }
 }
