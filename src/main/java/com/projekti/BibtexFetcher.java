@@ -1,10 +1,7 @@
 package com.projekti;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -17,32 +14,6 @@ import java.util.Map;
  * @version 9.12.2024
  */
 public class BibtexFetcher {
-    /**
-     * Main program to test fetching and formatting.
-     *
-     * @param args args
-     */
-    public static void main(String[] args) {
-        // Examples:
-        // https://jyu.finna.fi/PrimoRecord/pci.cdi_crossref_primary_10_33350_ka_117096
-        // doi: 10.33350/ka.117096
-        // https://jyu.finna.fi/PrimoRecord/pci.cdi_crossref_primary_10_30673_sja_119791
-        // 10.30673/sja.119791
-
-        String doi = "10.30673/sja.119791";
-        String bibtex = fetchBibtex(doi);
-        bibtex = formatBibtex(bibtex);
-
-        try (PrintWriter writer = new PrintWriter("fetched_bibtex.bib", "UTF-8")) {
-            writer.println(bibtex);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw e;
-        }
-    }
     
     /**
      * Fetches data.
@@ -51,10 +22,15 @@ public class BibtexFetcher {
      * @return fetched bibtex string
      */
     public static String fetchBibtex(String doi) {
+        // Examples:
+        // https://jyu.finna.fi/PrimoRecord/pci.cdi_crossref_primary_10_33350_ka_117096
+        // doi: 10.33350/ka.117096
+        // https://jyu.finna.fi/PrimoRecord/pci.cdi_crossref_primary_10_30673_sja_119791
+        // 10.30673/sja.119791
+
         // Use Crossref's REST API to get data
         // https://github.com/CrossRef/rest-api-doc/
         // https://www.crossref.org/documentation/
-        // TODO: use other options?
 
         // The part after doi extracts the data from the JSON in a decent bibtex format
         String apiUrl = "https://api.crossref.org/works/" + doi + "/transform/application/x-bibtex";
