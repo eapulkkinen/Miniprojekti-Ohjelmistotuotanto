@@ -6,3 +6,41 @@ Title: Koodauksen perusteet
 Publisher: Otava
 Author: Matti Meikäläinen
 
+id: 1
+Type: article
+Key: P21
+Volume: 2
+Year: 2021
+Title: Terveystaidot
+Pages: 56-65
+Author: Paamala Torvi
+Journal: New York Post
+
+id: 2
+Type: article
+Key: Kuismin_2022
+Volume: 64
+Year: 2022
+Title: Palava rakkaus ja öljy pumpulissa: Lemmenviestit, huumori ja kirjallistuminen suomenkielisessä kirjallisuudessa 1880-luvulta 1900-luvun alkuun
+Publisher: Sananjalka
+Author: Kuismin, Anna
+Journal: Sananjalka
+
+id: 3
+Type: book
+Key: Taito_2015
+Year: 2015
+Title: Raudan prosessointitekniikat teollisuudessa
+Publisher: Finna
+Author: Taito Erkki
+
+id: 4
+Type: article
+Key: Laukkanen_2011
+Volume: 1
+Year: 2011
+Title: Innovatiiviset peliteollisuuden hankkeet
+Pages: 15-16
+Author: Laukkanen Eerik
+Journal: GameDeveloper
+
