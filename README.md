@@ -13,5 +13,8 @@ Definition of Done
 
 [Retrospektiivi](/retro.md)
 
+Loppuraportti
+https://docs.google.com/document/d/1ruKdsNseu6kzBkdZD5h4OlCzXVLKd18OUWiToUJSaC8/edit?usp=sharing
+
 ## LICENSE
 This project is licensed under the terms of the [LICENSE](https://github.com/eapulkkinen/Miniprojekti-Ohjelmistotuotanto/blob/main/LICENSE).
