@@ -752,6 +752,14 @@ public class MiniprojektiTest {
         }
         assertEquals(true, correct);
     }
+    
+    @Test
+    public void testGetCitationsFromBibtexFile() {
+        Miniprojekti mini = new Miniprojekti();
+        mini.getCitationsFromBibtexFile("testBibtex.bib");
+        Citation cit = mini.getCitation(0);
+        assertEquals("M00", cit.getKey());
+    }
 
     // ... more test cases for different scenarios
 }
